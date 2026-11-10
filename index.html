@@ -62,6 +62,12 @@
         
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
         @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+        /* Estilos del Dashboard */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .kpi-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center; border-top: 4px solid var(--accent); }
+        .kpi-card h3 { font-size: 0.9rem; color: var(--secondary); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 600; }
+        .kpi-card .value { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
     </style>
 </head>
 <body>
@@ -176,7 +182,7 @@
             </div>
         </section>
 
-        <!-- ACTIVIDAD 12: INFORME GERENCIAL Y GRÁFICO (REEMPLAZA LAS DIAPOSITIVAS) -->
+        <!-- ACTIVIDAD 12: INFORME GERENCIAL Y GRÁFICO -->
         <section class="card" style="border-top: 6px solid var(--primary); background: #f8fafc;">
             <div class="card-header"><h2>12. Informe Ejecutivo y Plan de Acción Estratégico</h2></div>
             
@@ -195,6 +201,34 @@
                     <h3 style="text-align: center; color: var(--primary); font-size: 1rem; margin-bottom: 1rem;">Panorama Semestral de Ventas vs. Stock de Riesgo</h3>
                     <div style="position: relative; height: 280px; width: 100%;"><canvas id="chartExec"></canvas></div>
                 </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD GERENCIAL (AÑADIDO AL FINAL) -->
+        <section class="card" style="border-top: 6px solid var(--accent); background: #ffffff;">
+            <div class="card-header"><h2>📊 Dashboard Gerencial: Pronósticos y KPIs</h2></div>
+            <p class="text-argument">Panel interactivo de control estratégico para la toma de decisiones gerenciales con base en el modelo óptimo ARIMA (1,1,1).</p>
+            
+            <div class="kpi-grid">
+                <div class="kpi-card"><h3>Pronóstico Mes 25</h3><div class="value">$ 154.664 k</div></div>
+                <div class="kpi-card"><h3>Pronóstico Mes 30</h3><div class="value">$ 157.683 k</div></div>
+                <div class="kpi-card"><h3>Crecimiento Proyectado</h3><div class="value">+5.0 %</div></div>
+                <div class="kpi-card"><h3>MAPE Óptimo (ARIMA)</h3><div class="value">8.26 %</div></div>
+            </div>
+
+            <div class="chart-container"><canvas id="chartDashboard"></canvas></div>
+
+            <div class="table-responsive" style="margin-top: 2rem;">
+                <table class="table-blue">
+                    <thead>
+                        <tr><th>Indicador / Variable Clave</th><th>Mes 25</th><th>Mes 26</th><th>Mes 27</th><th>Mes 28</th><th>Mes 29</th><th>Mes 30</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Ventas Proyectadas (ARIMA)</strong></td><td>$ 154.664</td><td>$ 156.701</td><td>$ 157.369</td><td>$ 157.587</td><td>$ 157.659</td><td>$ 157.683</td></tr>
+                        <tr><td><strong>Stock de Seguridad Óptimo (±20%)</strong></td><td>$ 30.933</td><td>$ 31.340</td><td>$ 31.474</td><td>$ 31.517</td><td>$ 31.532</td><td>$ 31.537</td></tr>
+                        <tr><td><strong>Presupuesto de Aprovisionamiento</strong></td><td>$ 108.265</td><td>$ 109.691</td><td>$ 110.158</td><td>$ 110.311</td><td>$ 110.361</td><td>$ 110.378</td></tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
@@ -325,6 +359,17 @@
                 datasets: [
                     { label: 'Proyección ARIMA', data: arima_v.slice(24), backgroundColor: '#2563eb', borderRadius: 4 },
                     { label: 'Stock de Seguridad Estratégico', data: arima_v.slice(24).map(x=>x*0.2), backgroundColor: '#f59e0b', borderRadius: 4 }
+                ]
+            }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: false } } }
+        });
+
+        // Dashboard Gerencial - Gráfico Final
+        new Chart(document.getElementById('chartDashboard'), {
+            type: 'bar', data: {
+                labels: ['Mes 25', 'Mes 26', 'Mes 27', 'Mes 28', 'Mes 29', 'Mes 30'],
+                datasets: [
+                    { label: 'Ventas Proyectadas ($)', data: arima_v.slice(24), backgroundColor: '#0f172a', borderRadius: 4 },
+                    { label: 'Stock de Seguridad (±20%)', data: arima_v.slice(24).map(x=>x*0.2), backgroundColor: '#16a34a', borderRadius: 4 }
                 ]
             }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: false } } }
         });
