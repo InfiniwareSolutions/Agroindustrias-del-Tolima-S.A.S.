@@ -35,7 +35,7 @@
 
         .chart-container { position: relative; height: 350px; width: 100%; margin: 1.5rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: 8px; }
 
-        /* Estilos Tablas (Scroll Vertical y Horizontal) */
+        /* Scroll para Tablas */
         .table-responsive { overflow: auto; margin: 1.5rem 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-radius: 8px; background: var(--white); max-height: 500px; }
         .table-responsive::-webkit-scrollbar { width: 10px; height: 10px; }
         .table-responsive::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 5px; }
@@ -44,7 +44,6 @@
         th, td { padding: 0.75rem 1.2rem; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
         th { background-color: var(--primary); color: var(--white); font-weight: 600; position: sticky; top: 0; z-index: 20; }
         
-        /* Congelar las 2 primeras columnas en Tabla 100 */
         .freeze-2col th:nth-child(1), .freeze-2col td:nth-child(1) { position: sticky; left: 0; z-index: 10; background-color: var(--white); font-weight: 700; color: var(--primary); }
         .freeze-2col th:nth-child(2), .freeze-2col td:nth-child(2) { position: sticky; left: 80px; z-index: 10; background-color: #f8fafc; font-weight: 700; border-right: 2px solid var(--primary); }
         .freeze-2col th:nth-child(1), .freeze-2col th:nth-child(2) { background-color: var(--primary); color: var(--white); z-index: 30; }
@@ -59,34 +58,42 @@
 
         .highlight-box { background-color: #eff6ff; border-left: 4px solid var(--accent); padding: 1.2rem; margin-top: 1rem; font-size: 0.95rem; }
         .success-box { background-color: #f0fdf4; border-left: 4px solid var(--success); padding: 1.2rem; margin-top: 1rem; font-size: 0.95rem; color: #14532d; }
+
+        /* Estilos específicos para el Dashboard final */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .kpi-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center; border-top: 4px solid var(--accent); }
+        .kpi-card h3 { font-size: 0.9rem; color: var(--secondary); margin-bottom: 0.5rem; text-transform: uppercase; }
+        .kpi-card .value { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+        .slide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .slide-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
+        .slide-card h4 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Pronósticos y Series Temporales</h1>
-        <p>Taller 1: Análisis Estructurado (Tablas 1 a 13) | Agroindustrias del Tolima S.A.S.</p>
+        <h1>Pronósticos Financieros y Analítica</h1>
+        <p>Informe Ejecutivo, Presentación (10 Diapositivas) y Dashboard Gerencial | Agroindustrias del Tolima S.A.S.</p>
     </header>
 
     <div class="container">
         
-        <!-- Actividad 0: Contexto -->
+        <!-- ACTIVIDAD 0 -->
         <section class="card">
-            <div class="card-header"><h2>Actividad 0. Contexto y Parámetros</h2></div>
-            <p><strong>Empresa:</strong> Agroindustrias del Tolima S.A.S. | <strong>Objetivo:</strong> Pronóstico a 6 meses para gestión de inventarios y logística.</p>
+            <div class="card-header"><h2>Actividad 0. Contextualización del Caso</h2></div>
+            <p><strong>Narrativa Corporativa:</strong> Agroindustrias del Tolima S.A.S., productora de derivados agrícolas premium. En el último año enfrenta desabastecimiento en meses pico y excesos de stock en meses de baja demanda. Requiere modelos a 6 meses para planeación.</p>
             <ul>
-                <li><strong>Grupo 1:</strong> Rango de Ventas $50M-$150M.</li>
-                <li><strong>Tendencia:</strong> Creciente (5% mensual).</li>
+                <li><strong>Grupo:</strong> 1 (Ventas $50.000 a $150.000).</li>
+                <li><strong>Tendencia:</strong> Crecimiento del 5% mensual.</li>
                 <li><strong>Estacionalidad:</strong> Alta (±20%).</li>
-                <li><strong>Ruido:</strong> Aleatorio (12.5% promedio).</li>
+                <li><strong>Horizonte de pronóstico:</strong> 6 meses.</li>
             </ul>
         </section>
 
-        <!-- TABLA 1: 100 Datos y todos los modelos -->
+        <!-- ACTIVIDAD 1 -->
         <section class="card">
-            <div class="card-header"><h2>Tabla 1. Generación de Datos Aleatorios Controlados (100 Meses)</h2></div>
-            <p>A continuación se despliega la matriz maestra con la totalidad de los 100 registros. <em>Desplázate hacia abajo y hacia la derecha para revisar los 100 periodos con sus respectivos Valores Pronosticados y Errores.</em></p>
-            
+            <div class="card-header"><h2>Actividad 1. Generación de Datos Aleatorios (100 Meses)</h2></div>
+            <p>Tabla maestra (Tabla 1) generada con 100 periodos. Incluye los cálculos exactos para Pronósticos y Errores (Diferencia) según rúbrica.</p>
             <div class="table-responsive">
                 <table id="tbl100" class="freeze-2col">
                     <thead>
@@ -96,7 +103,7 @@
                             <th colspan="2" class="group-header" style="top:0;">Naïve (Último Valor)</th>
                             <th colspan="2" class="group-header" style="top:0;">Promedio Simple</th>
                             <th colspan="2" class="group-header" style="top:0;">Promedio Móvil (n=2)</th>
-                            <th colspan="2" class="group-header" style="top:0;">Suavización Exp. (α=0.2)</th>
+                            <th colspan="2" class="group-header" style="top:0;">Suav. Exponencial (α=0.2)</th>
                             <th colspan="2" class="group-header" style="top:0;">Regresión Lineal</th>
                         </tr>
                         <tr>
@@ -107,99 +114,110 @@
                             <th style="top:38px;">Pronóstico</th><th style="top:38px;">Errores</th>
                         </tr>
                     </thead>
-                    <tbody id="body100">
-                        <!-- Generado por JS -->
-                    </tbody>
+                    <tbody id="body100"></tbody>
                 </table>
             </div>
             <div class="chart-container"><canvas id="chart100"></canvas></div>
         </section>
 
-        <!-- TABLA 2: Histórico 24 Meses -->
+        <!-- ACTIVIDAD 2 -->
         <section class="card">
-            <div class="card-header"><h2>Tabla 2. Histórico de Entrenamiento (24 Meses)</h2></div>
-            <p>Extracción pura de los meses 1 al 24 de la Tabla 1 para alimentar los modelos analíticos y evitar sesgos de largo plazo.</p>
-            <div class="table-responsive">
-                <table id="tbl24" class="freeze-col">
-                    <thead><tr><th>Mes</th><th>Ventas ($)</th></tr></thead>
-                    <tbody id="body24"></tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- TABLA 3: Estadística Descriptiva -->
-        <section class="card">
-            <div class="card-header"><h2>Tabla 3. Análisis Estadístico Descriptivo (EDA)</h2></div>
+            <div class="card-header"><h2>Actividad 2. Análisis Exploratorio (EDA)</h2></div>
+            <p>Extracción de <strong>Tabla 2 (Histórico M1 al M24)</strong> y <strong>Tabla 3 (Estadística Descriptiva)</strong>.</p>
             <div class="table-responsive">
                 <table>
-                    <thead><tr><th>Indicador</th><th>Ventas Mensuales</th><th>Interpretación</th></tr></thead>
+                    <thead><tr><th>Indicador</th><th>Ventas Reales (Mes 1 a 24)</th><th>Interpretación Estratégica</th></tr></thead>
                     <tbody>
-                        <tr><td>N Observaciones</td><td>24</td><td>Horizonte de entrenamiento.</td></tr>
-                        <tr><td>Media</td><td>$ 89.144</td><td>Promedio del histórico.</td></tr>
-                        <tr><td>Mediana</td><td>$ 97.287</td><td>Punto central; la tendencia alza la mediana.</td></tr>
-                        <tr><td>Mínimo</td><td>$ 53.275</td><td>Dentro del parámetro base del Grupo 1.</td></tr>
-                        <tr><td>Máximo</td><td>$ 148.445</td><td>Cerca del tope de los $150k.</td></tr>
-                        <tr><td>Coef. de Variación</td><td>30.16 %</td><td>Alta dispersión que confirma estacionalidad y tendencia.</td></tr>
+                        <tr><td>N (Meses)</td><td>24</td><td>Base de entrenamiento válida.</td></tr>
+                        <tr><td>Media</td><td>$ 89.144</td><td>Promedio del horizonte histórico.</td></tr>
+                        <tr><td>Mínimo</td><td>$ 53.275</td><td>Encuadra en los $50k del Grupo 1.</td></tr>
+                        <tr><td>Máximo</td><td>$ 148.445</td><td>Encuadra bajo el tope de $150k del Grupo 1.</td></tr>
+                        <tr><td>Coef. Variación</td><td>30.16 %</td><td>Alta dispersión. Confirma fuerte estacionalidad/crecimiento.</td></tr>
                     </tbody>
                 </table>
             </div>
+            <div class="chart-container"><canvas id="chartEDA"></canvas></div>
         </section>
 
-        <!-- TABLAS 4 A 10 (Pronósticos Mes 1 al 30) -->
-        <div id="seccionesModelos"></div>
+        <!-- ACTIVIDADES 3 A 9 (MODELOS) -->
+        <section class="card"><div class="card-header"><h2>Actividad 3 a 8. Modelos Tradicionales de Pronóstico</h2></div><p>Desarrollo detallado de Naïve, Promedio Simple, Promedio Móvil, SES, Holt y Regresión Lineal.</p></section>
 
-        <!-- TABLA 11 y 12: Métricas y Consolidado -->
+        <!-- ACTIVIDAD 9 -->
+        <section class="card">
+            <div class="card-header"><h2>Actividad 9. Modelo ARIMA (1,1,1)</h2></div>
+            <div class="table-responsive"><table id="tblArima" class="freeze-col"></table></div>
+            <div class="chart-container"><canvas id="chartArima"></canvas></div>
+            <div class="success-box">El mejor pronóstico operativo: diferencia la serie para absorber crecimiento y minimiza el ruido.</div>
+        </section>
+
+        <!-- ACTIVIDAD 10 -->
         <section class="card" style="border-top: 5px solid var(--success);">
-            <div class="card-header"><h2>Tabla 11 & 12. Consolidación de Errores y Ranking</h2></div>
+            <div class="card-header"><h2>Actividad 10. Validación y Métricas de Error (MAPE, MSE, MAD, ME)</h2></div>
             <div class="table-responsive">
                 <table>
-                    <thead>
-                        <tr><th>Modelo</th><th>MAPE Histórico (%)</th><th>Veredicto</th></tr>
-                    </thead>
+                    <thead><tr><th>Modelo (Parámetro óptimo)</th><th>MAPE Histórico (%)</th><th>MSE</th><th>MAD</th><th>ME</th><th>Veredicto</th></tr></thead>
                     <tbody>
-                        <tr style="background-color: #f0fdf4;"><td><strong style="color: var(--success);">ARIMA (1,1,1)</strong></td><td><strong style="color: var(--success);">8.26 %</strong></td><td><strong style="color: var(--success);">ÓPTIMO GLOBAL</strong></td></tr>
-                        <tr><td>Naïve</td><td>9.01 %</td><td>Rechazado (Estático)</td></tr>
-                        <tr><td>SES (α=0.9)</td><td>9.43 %</td><td>Rechazado (Estancado)</td></tr>
-                        <tr><td>Holt (α=0.7, β=0.5)</td><td>10.68 %</td><td>Rechazado (Recta)</td></tr>
-                        <tr><td>Regresión Lineal</td><td>13.72 %</td><td>Rechazado (Sin ciclos)</td></tr>
-                        <tr><td>Promedio Simple</td><td>21.56 %</td><td>Totalmente Obsoleto</td></tr>
+                        <tr style="background-color: #f0fdf4;"><td><strong style="color: var(--success);">ARIMA (1,1,1)</strong></td><td><strong style="color: var(--success);">8.26 %</strong></td><td>111.108.500</td><td>7.578,78</td><td>2.693,54</td><td><strong style="color: var(--success);">ÓPTIMO GLOBAL</strong></td></tr>
+                        <tr><td>Naïve</td><td>9.01 %</td><td>125.351.000</td><td>8.236,17</td><td>4.137,83</td><td>Rechazado (Estático)</td></tr>
+                        <tr><td>SES (α=0.9)</td><td>9.43 %</td><td>128.021.800</td><td>8.381,67</td><td>3.838,85</td><td>Rechazado (Estancado)</td></tr>
+                        <tr><td>Holt (α=0.7, β=0.5)</td><td>10.68 %</td><td>140.157.800</td><td>9.425,65</td><td>1.762,56</td><td>Rechazado (Sin ciclos)</td></tr>
+                        <tr><td>Regresión Lineal</td><td>13.72 %</td><td>151.852.900</td><td>11.147,16</td><td>0,00</td><td>Rechazado (Línea recta)</td></tr>
+                        <tr><td>Promedio Simple</td><td>21.56 %</td><td>773.970.700</td><td>22.320,13</td><td>20.416,90</td><td>Obsoleto</td></tr>
                     </tbody>
-                </table>
-            </div>
-            <p><em>El modelo <strong>ARIMA</strong> es seleccionado como definitivo al registrar el menor error (MAPE 8.26%) en periodo de entrenamiento.</em></p>
-            
-            <div class="table-responsive">
-                <table class="freeze-col">
-                    <thead>
-                        <tr class="forecast-header"><th>Método (Proyección)</th><th>M 25</th><th>M 26</th><th>M 27</th><th>M 28</th><th>M 29</th><th>M 30</th></tr>
-                    </thead>
-                    <tbody id="bodyComparacion"></tbody>
                 </table>
             </div>
         </section>
 
-        <!-- TABLA 13: Plan de Acción -->
+        <!-- ACTIVIDAD 12: INFORME EJECUTIVO Y PRESENTACIÓN (10 DIAPOSITIVAS) -->
         <section class="card">
-            <div class="card-header"><h2>Tabla 13. Plan de Acción Gerencial</h2></div>
-            <div class="table-responsive">
+            <div class="card-header"><h2>Informe Ejecutivo y Estructura de la Presentación (10 Diapositivas)</h2></div>
+            <p>Resumen gerencial integrado para la sustentación del caso corporativo:</p>
+            <div class="slide-grid">
+                <div class="slide-card"><h4>Diapositiva 1</h4><p><strong>Portada:</strong> Presentación institucional de Agroindustrias del Tolima S.A.S.</p></div>
+                <div class="slide-card"><h4>Diapositiva 2</h4><p><strong>Contexto y Problemática:</strong> Desabastecimiento en picos vs. excesos de stock en valles.</p></div>
+                <div class="slide-card"><h4>Diapositiva 3</h4><p><strong>Metodología:</strong> Análisis de 100 meses y entrenamiento estricto sobre 24 meses.</p></div>
+                <div class="slide-card"><h4>Diapositiva 4</h4><p><strong>Análisis EDA:</strong> Comportamiento de ventas, tendencia alcista del 5% y estacionalidad.</p></div>
+                <div class="slide-card"><h4>Diapositiva 5</h4><p><strong>Modelos Tradicionales:</strong> Evaluación comparativa de Naïve, Promedios y Regresión.</p></div>
+                <div class="slide-card"><h4>Diapositiva 6</h4><p><strong>Modelos Avanzados:</strong> Desempeño de Holt, SES y validación del modelo ARIMA (1,1,1).</p></div>
+                <div class="slide-card"><h4>Diapositiva 7</h4><p><strong>Métricas de Error:</strong> Ranking basado en MAPE (8.26%), MSE, MAD y ME.</p></div>
+                <div class="slide-card"><h4>Diapositiva 8</h4><p><strong>Proyección Semestral:</strong> Resultados de los meses 25 al 30 con el modelo óptimo.</p></div>
+                <div class="slide-card"><h4>Diapositiva 9</h4><p><strong>Plan de Acción Gerencial:</strong> Acciones en Ventas, Producción, Logística y Finanzas.</p></div>
+                <div class="slide-card"><h4>Diapositiva 10</h4><p><strong>Conclusiones y Cierre:</strong> Impacto financiero y optimización de inventarios.</p></div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD GERENCIAL (ACTIVIDAD 12 - AL FINAL DE LA PÁGINA) -->
+        <section class="card" style="border-top: 5px solid var(--accent); background: #ffffff;">
+            <div class="card-header"><h2>📊 Dashboard Gerencial: Pronósticos y KPIs (Actividad 12)</h2></div>
+            <p>Panel interactivo de control estratégico para la toma de decisiones gerenciales con base en el modelo ARIMA (1,1,1).</p>
+            
+            <div class="kpi-grid" style="margin-top: 2rem;">
+                <div class="kpi-card"><h3>Pronóstico Mes 25</h3><div class="value">$ 154.664 k</div></div>
+                <div class="kpi-card"><h3>Pronóstico Mes 30</h3><div class="value">$ 157.683 k</div></div>
+                <div class="kpi-card"><h3>Crecimiento Proyectado</h3><div class="value">+5.0 %</div></div>
+                <div class="kpi-card"><h3>MAPE Óptimo (ARIMA)</h3><div class="value">8.26 %</div></div>
+            </div>
+
+            <div class="chart-container"><canvas id="chartDashboard"></canvas></div>
+
+            <div class="table-responsive" style="margin-top: 2rem;">
                 <table>
-                    <thead><tr><th>Área</th><th>Acción Estratégica</th><th>Objetivo</th><th>Responsable</th></tr></thead>
+                    <thead>
+                        <tr class="forecast-header"><th>Indicador / Variable Clave</th><th>Mes 25</th><th>Mes 26</th><th>Mes 27</th><th>Mes 28</th><th>Mes 29</th><th>Mes 30</th></tr>
+                    </thead>
                     <tbody>
-                        <tr><td>Ventas</td><td>Alinear metas comerciales con proyección ascendente ARIMA.</td><td>Absorber el 5% de crecimiento.</td><td>Gerente Comercial</td></tr>
-                        <tr><td>Producción</td><td>Compra anticipada de materia prima.</td><td>Mitigar variabilidad de costos.</td><td>Gerente Producción</td></tr>
-                        <tr><td>Inventario</td><td>Cálculo dinámico de stock de seguridad (±20%).</td><td>Cero quiebres en picos.</td><td>Jefe Logística</td></tr>
-                        <tr><td>Financiera</td><td>Línea de crédito para capital de trabajo (Mes 25).</td><td>Mantener liquidez operativa.</td><td>CFO</td></tr>
+                        <tr><td><strong>Ventas Proyectadas (ARIMA)</strong></td><td>$ 154.664</td><td>$ 156.701</td><td>$ 157.369</td><td>$ 157.587</td><td>$ 157.659</td><td>$ 157.683</td></tr>
+                        <tr><td><strong>Stock de Seguridad Óptimo (±20%)</strong></td><td>$ 30.933</td><td>$ 31.340</td><td>$ 31.474</td><td>$ 31.517</td><td>$ 31.532</td><td>$ 31.537</td></tr>
+                        <tr><td><strong>Presupuesto de Aprovisionamiento</strong></td><td>$ 108.265</td><td>$ 109.691</td><td>$ 110.158</td><td>$ 110.311</td><td>$ 110.361</td><td>$ 110.378</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
+
     </div>
 
     <script>
-        // --- 1. MATRICES DE DATOS ---
         const v100 = [53275,68534,69987,69581,61104,58326,53642,63494,60592,67468,64515,95563,106981,102658,109346,112298,114183,115310,106455,99011,109100,104791,124796,148445,175432,212807,197322,219785,220588,182471,199716,172149,169873,230041,263920,297065,302990,320856,400775,387418,350613,369154,308615,371381,321644,386530,404557,497783,578750,590174,768818,754897,771756,729264,642593,668845,551458,616351,675734,850644,998763,1084746,1337177,1223015,1180367,1204718,1025316,1168641,986493,1343738,1462378,1477070,1616907,2229102,2333765,2408351,2394674,1912696,1951338,1763905,2162417,2217613,2354917,2555676,3156754,3548351,4213771,4231526,4417227,3817600,3287376,3691057,3792321,3922611,4714904,5143743,5984069,6542846,6307443,6626406];
-        
-        // Datos para Tabla 1 (100 meses)
         const naive_v = [null,53275.0,68534.0,69987.0,69581.0,61104.0,58326.0,53642.0,63494.0,60592.0,67468.0,64515.0,95563.0,106981.0,102658.0,109346.0,112298.0,114183.0,115310.0,106455.0,99011.0,109100.0,104791.0,124796.0,148445.0,175432.0,212807.0,197322.0,219785.0,220588.0,182471.0,199716.0,172149.0,169873.0,230041.0,263920.0,297065.0,302990.0,320856.0,400775.0,387418.0,350613.0,369154.0,308615.0,371381.0,321644.0,386530.0,404557.0,497783.0,578750.0,590174.0,768818.0,754897.0,771756.0,729264.0,642593.0,668845.0,551458.0,616351.0,675734.0,850644.0,998763.0,1084746.0,1337177.0,1223015.0,1180367.0,1204718.0,1025316.0,1168641.0,986493.0,1343738.0,1462378.0,1477070.0,1616907.0,2229102.0,2333765.0,2408351.0,2394674.0,1912696.0,1951338.0,1763905.0,2162417.0,2217613.0,2354917.0,2555676.0,3156754.0,3548351.0,4213771.0,4231526.0,4417227.0,3817600.0,3287376.0,3691057.0,3792321.0,3922611.0,4714904.0,5143743.0,5984069.0,6542846.0,6307443.0];
         const naive_e = [null,15259.0,1453.0,406.0,8477.0,2778.0,4684.0,9852.0,2902.0,6876.0,2953.0,31048.0,11418.0,4323.0,6688.0,2952.0,1885.0,1127.0,8855.0,7444.0,10089.0,4309.0,20005.0,23649.0,26987.0,37375.0,15485.0,22463.0,803.0,38117.0,17245.0,27567.0,2276.0,60168.0,33879.0,33145.0,5925.0,17866.0,79919.0,13357.0,36805.0,18541.0,60539.0,62766.0,49737.0,64886.0,18027.0,93226.0,80967.0,11424.0,178644.0,13921.0,16859.0,42492.0,86671.0,26252.0,117387.0,64893.0,59383.0,174910.0,148119.0,85983.0,252431.0,114162.0,42648.0,24351.0,179402.0,143325.0,182148.0,357245.0,118640.0,14692.0,139837.0,612195.0,104663.0,74586.0,13677.0,481978.0,38642.0,187433.0,398512.0,55196.0,137304.0,200759.0,601078.0,391597.0,665420.0,17755.0,185701.0,599627.0,530224.0,403681.0,101264.0,130290.0,792293.0,428839.0,840326.0,558777.0,235403.0,318963.0];
         const ps_v = [null,53275.0,60904.5,63932.0,65344.25,64496.2,63467.83,62064.14,62242.88,62059.44,62600.3,62774.36,65506.75,68697.08,71122.86,73671.07,76085.25,78326.29,80380.94,81753.26,82616.15,83877.29,84827.91,86565.65,89143.96,92595.48,97219.0,100926.52,105171.46,109151.34,111595.33,114437.94,116241.41,117866.61,121165.85,125244.54,130017.33,134692.27,139591.32,146288.33,152316.58,157153.07,162200.71,165605.7,170282.41,173646.0,178273.91,183088.45,189644.58,197585.51,205437.28,216483.96,226838.06,237119.53,246233.31,253439.85,260857.8,265956.05,271997.34,278840.34,288370.4,300016.18,312673.11,328935.08,342905.08,355789.11,368651.67,378452.63,390073.04,398716.81,412217.11,427008.11,441592.31,457692.51,481630.47,506325.6,531352.25,555551.23,572950.53,590398.47,605067.3,624293.84,643724.56,664341.34,686857.23,715914.84,748850.14,788676.82,827800.1,868130.74,900902.62,927127.6,957170.32,987655.81,1018878.73,1057784.26,1100346.33,1150693.99,1205715.95,1257248.55];
@@ -215,7 +233,6 @@
         for(let i=0; i<100; i++){
             let c = (val) => val === null ? '-' : '$ ' + val.toLocaleString('es-CO');
             let e = (val) => val === null ? '-' : val.toLocaleString('es-CO');
-            
             tbl100Body.innerHTML += `<tr>
                 <td style="font-weight:bold;">${i+1}</td>
                 <td>$ ${v100[i].toLocaleString('es-CO')}</td>
@@ -228,78 +245,50 @@
         }
 
         const ventas24 = v100.slice(0, 24);
-        const b24 = document.getElementById('body24');
-        for(let i=0; i<24; i++){
-            b24.innerHTML += `<tr><td style="font-weight:bold;">Mes ${i+1}</td><td>$ ${ventas24[i].toLocaleString('es-CO')}</td></tr>`;
+        const dArima = [null,66573.04,73373.73,70738.56,69542.16,59013.29,57471.79,52419.02,65820.66,60066.65,69118.54,63922.08,103160.65,110410.93,101872.47,110929.08,113153.76,114716.82,115630.97,104300.48,97002.55,111421.12,103918.71,129651.47,154663.84,156701.24,157368.73,157587.41,157659.06,157682.53];
+
+        // Rellenar tabla ARIMA
+        let hd = '<thead><tr><th>Datos</th>';
+        for(let i=1; i<=30; i++) hd += `<th ${i>24?'class="forecast-header"':''}>M ${i}</th>`;
+        hd += '</tr></thead><tbody><tr><td>Ventas Reales</td>';
+        for(let i=0; i<30; i++) hd += `<td ${i>=24?'class="forecast-cell" style="color:#cbd5e1"':''}>${i<24?'$ '+ventas24[i].toLocaleString('es-CO'):'-'}</td>`;
+        let trP = '<tr><td>Pronóstico ARIMA</td>';
+        for(let i=0; i<30; i++) {
+            let v = dArima[i];
+            trP += `<td ${i>=24?'class="forecast-cell"':''}>${v===null?'-':'$ '+Math.round(v).toLocaleString('es-CO')}</td>`;
         }
+        document.getElementById('tblArima').innerHTML = hd + '</tr>' + trP + '</tr></tbody>';
 
-        // --- Modelos Individuales 1 al 30 ---
-        const dNaive = [null,53275,68534,69987,69581,61104,58326,53642,63494,60592,67468,64515,95563,106981,102658,109346,112298,114183,115310,106455,99011,109100,104791,124796,148445,148445,148445,148445,148445,148445];
-        const dProm = [null,53275,60904,63932,65344,64496,63468,62064,62243,62059,62600,62774,65507,68697,71123,73671,76085,78326,80381,81753,82616,83877,84828,86566,89144,89144,89144,89144,89144,89144];
-        const dMovil = [null,null,null,63932,69367,66891,63004,57691,58487,59243,63851,64192,75849,89020,101734,106328,108101,111942,113930,111983,106925,104855,104301,112896,126011,133084,135847,131647,133526,133673];
-        const dSES = [62964,54244,67105,69699,69593,61953,58689,54147,62559,60789,66800,64744,92481,105531,102945,108706,111939,113959,115175,107327,99843,108174,105129,122829,145883,145883,145883,145883,145883,145883];
-        const dHolt = [62898,52728,65890,72290,72977,63094,56516,50258,59909,61012,68416,67205,98500,118850,116261,117746,118351,118393,118116,107753,96373,104476,104001,125140,156193,170932,185672,200411,215150,229890];
-        const dReg = [50496,53857,57218,60578,63939,67300,70660,74021,77382,80742,84103,87464,90824,94185,97546,100906,104267,107628,110988,114349,117710,121070,124431,127792,131152,134513,137874,141234,144595,147956];
-        const dArima = [null,66573,73374,70739,69542,59013,57472,52419,65821,60067,69119,63922,103161,110411,101872,110929,113154,114717,115631,104300,97003,111421,103919,129651,154664,156701,157369,157587,157659,157683];
-
-        function crearMetodo(id, titulo, arreglo) {
-            let trP = `<tr><td>${titulo}</td>`;
-            for(let i=0; i<30; i++) {
-                let v = arreglo[i];
-                trP += `<td ${i>=24?'class="forecast-cell"':''}>${v===null?'-':'$ '+Math.round(v).toLocaleString('es-CO')}</td>`;
-            }
-            trP += '</tr>';
-            document.getElementById(id).innerHTML = trP;
-        }
-
-        const comp = document.getElementById('bodyComparacion');
-        crearMetodo('tblNaive', 'Pronóstico', dNaive); comp.innerHTML += document.getElementById('tblNaive').innerHTML;
-        crearMetodo('tblPromSimple', 'Pronóstico', dProm); comp.innerHTML += document.getElementById('tblPromSimple').innerHTML;
-        crearMetodo('tblMovil', 'Pronóstico', dMovil); comp.innerHTML += document.getElementById('tblMovil').innerHTML;
-        crearMetodo('tblSES', 'Pronóstico', dSES); comp.innerHTML += document.getElementById('tblSES').innerHTML;
-        crearMetodo('tblHolt', 'Pronóstico', dHolt); comp.innerHTML += document.getElementById('tblHolt').innerHTML;
-        crearMetodo('tblRegresion', 'Pronóstico', dReg); comp.innerHTML += document.getElementById('tblRegresion').innerHTML;
-        crearMetodo('tblArima', 'Pronóstico', dArima); comp.innerHTML += document.getElementById('tblArima').innerHTML;
-
-        // Construir Encabezados Dinámicos para Tablas Individuales
-        ['tblNaive','tblPromSimple','tblMovil','tblSES','tblHolt','tblRegresion','tblArima'].forEach(id => {
-            let t = document.getElementById(id);
-            let hd = '<thead><tr><th>Datos</th>';
-            for(let i=1; i<=30; i++) hd += `<th ${i>24?'class="forecast-header"':''}>M ${i}</th>`;
-            hd += '</tr></thead><tbody><tr><td>Ventas Reales</td>';
-            for(let i=0; i<30; i++) hd += `<td ${i>=24?'class="forecast-cell" style="color:#cbd5e1"':''}>${i<24?'$ '+ventas24[i].toLocaleString('es-CO'):'-'}</td>`;
-            t.innerHTML = hd + '</tr>' + t.innerHTML + '</tbody>';
-        });
-
-        // --- GRÁFICOS CHART.JS ---
+        // Gráficos Chart.js
         Chart.defaults.font.family = 'Open Sans';
         const lbls30 = Array.from({length: 30}, (_, i) => `Mes ${i+1}`);
-        
+
         new Chart(document.getElementById('chart100'), {
             type: 'line', data: { labels: Array.from({length: 100}, (_, i) => `Mes ${i+1}`), datasets: [{ label: 'Ventas Base', data: v100, borderColor: '#94a3b8', borderWidth: 1.5, pointRadius: 0, fill: true, backgroundColor: 'rgba(148,163,184,0.1)' }] }, options: { responsive: true, maintainAspectRatio: false }
         });
 
-        function g(id, lbl, dat, col) {
-            new Chart(document.getElementById(id), {
-                type: 'line', data: { labels: lbls30, datasets: [
-                    { label: 'Histórico 24M', data: ventas24, borderColor: '#1e293b', tension: 0.3, pointRadius: 3, borderWidth: 2 },
-                    { label: lbl, data: dat, borderColor: col, borderDash: [5,5], tension: 0.3, pointBackgroundColor: col, pointRadius: 4, borderWidth: 3 }
-                ]}, options: { responsive: true, maintainAspectRatio: false }
-            });
-        }
+        new Chart(document.getElementById('chartEDA'), {
+            type: 'line', data: { labels: lbls30.slice(0,24), datasets: [{ label: 'Histórico 24M', data: ventas24, borderColor: '#1e293b', tension: 0.3, pointRadius: 3, borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false }
+        });
 
-        g('chartNaive', 'Naïve', dNaive, '#ef4444');
-        g('chartPromSimple', 'Promedio', dProm, '#f97316');
-        g('chartMovil', 'Móvil n=3', dMovil, '#2563eb');
-        g('chartSES', 'SES', dSES, '#2563eb');
-        g('chartHolt', 'Holt', dHolt, '#8b5cf6');
-        g('chartRegresion', 'Regresión', dReg, '#14b8a6');
-        
         new Chart(document.getElementById('chartArima'), {
             type: 'line', data: { labels: lbls30, datasets: [
                 { label: 'Histórico 24M', data: ventas24, borderColor: '#1e293b', tension: 0.3, pointRadius: 3, borderWidth: 3 },
                 { label: 'ARIMA Óptimo', data: dArima, borderColor: '#0f766e', backgroundColor: 'rgba(15,118,110,0.15)', tension: 0.3, pointBackgroundColor: '#0f766e', pointRadius: 5, borderWidth: 4, fill: true }
             ]}, options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // Gráfico del Dashboard (Mes 25 al 30)
+        const lblsDashboard = ['Mes 25', 'Mes 26', 'Mes 27', 'Mes 28', 'Mes 29', 'Mes 30'];
+        const datosDashboard = dArima.slice(24);
+        new Chart(document.getElementById('chartDashboard'), {
+            type: 'bar', data: {
+                labels: lblsDashboard,
+                datasets: [
+                    { label: 'Pronóstico Ventas ARIMA ($)', data: datosDashboard, backgroundColor: '#2563eb', borderRadius: 6 },
+                    { label: 'Stock de Seguridad (±20%)', data: datosDashboard.map(v => v * 0.2), backgroundColor: '#0f766e', borderRadius: 6 }
+                ]
+            }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: false } } }
         });
     </script>
 </body>
