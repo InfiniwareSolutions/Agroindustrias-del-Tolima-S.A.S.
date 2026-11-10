@@ -3,825 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe Ejecutivo | Agroindustrias del Tolima S.A.S.</title>
+    <title>Taller 1 | Agroindustrias del Tolima S.A.S.</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e293b; /* Azul marino profundo */
-            --secondary: #334155; /* Gris pizarra */
-            --accent: #2563eb; /* Azul rey corporativo */
-            --success: #0f766e; /* Verde esmeralda para el óptimo */
-            --bg-color: #f8fafc; /* Fondo súper limpio */
+            --primary: #1e293b; 
+            --secondary: #334155; 
+            --accent: #2563eb; 
+            --success: #0f766e; 
+            --bg-color: #f8fafc; 
             --white: #ffffff;
             --text-dark: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
-            --forecast-bg: #eff6ff; /* Fondo azul claro para pronósticos */
+            --forecast-bg: #eff6ff; 
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            line-height: 1.7;
-        }
-
-        h1, h2, h3, h4, h5 {
-            font-family: 'Montserrat', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.7; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
 
         header {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--white);
-            padding: 5rem 2rem;
-            text-align: center;
-            border-bottom: 5px solid var(--accent);
+            color: var(--white); padding: 4rem 2rem; text-align: center; border-bottom: 5px solid var(--accent);
         }
+        header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.5px; }
+        header p { font-size: 1.1rem; color: #cbd5e1; font-weight: 300; max-width: 800px; margin: 0 auto; }
 
-        header h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            letter-spacing: -0.5px;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            font-weight: 300;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: -3rem auto 3rem;
-            padding: 0 1.5rem;
-        }
-
+        .container { max-width: 1200px; margin: -2rem auto 3rem; padding: 0 1.5rem; }
         .card {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 3rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
+            background: var(--white); border-radius: 10px; padding: 2.5rem; margin-bottom: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border: 1px solid var(--border);
         }
+        .card-header { border-bottom: 2px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+        .card h2 { color: var(--primary); font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .card h2::before { content: ''; display: inline-block; width: 6px; height: 22px; background-color: var(--accent); border-radius: 3px; }
 
-        .card-header {
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-        }
+        .chart-container { position: relative; height: 350px; width: 100%; margin: 1.5rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: 8px; }
 
-        .card h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h2::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 25px;
-            background-color: var(--accent);
-            border-radius: 3px;
-        }
-
-        .card h3 {
-            color: var(--secondary);
-            font-size: 1.2rem;
-            margin: 1.5rem 0 1rem;
-            font-weight: 600;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 400px;
-            width: 100%;
-            margin: 2rem 0;
-            padding: 1rem;
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
-
-        /* CONFIGURACIÓN AVANZADA DE TABLAS CON SCROLL Y COLUMNA FIJA */
-        .table-responsive {
-            overflow-x: auto;
-            margin: 1.5rem 0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border-radius: 8px;
-            background: var(--white);
-        }
-
-        .table-responsive::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .table-responsive::-webkit-scrollbar-thumb {
-            background: #94a3b8;
-            border-radius: 4px;
-        }
-
-        .table-scroll-vertical {
-            max-height: 350px;
-            overflow-y: auto;
-        }
-
-        table {
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        th, td {
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--border);
-        }
-
-        th {
-            background-color: var(--primary);
-            color: var(--white);
-            font-weight: 600;
-        }
-
-        /* Congelar la primera columna */
+        /* Estilos de Tabla Avanzada (Scroll y Columna Fija) */
+        .table-responsive { overflow-x: auto; margin: 1.5rem 0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border-radius: 8px; background: var(--white); }
+        .table-responsive::-webkit-scrollbar { height: 10px; }
+        .table-responsive::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 5px; }
+        table { border-collapse: collapse; font-size: 0.85rem; text-align: center; white-space: nowrap; width: 100%; }
+        th, td { padding: 0.75rem 1.2rem; border: 1px solid var(--border); }
+        th { background-color: var(--primary); color: var(--white); font-weight: 600; }
+        
+        /* Congelar 1ra Columna */
         table th:first-child, table td:first-child {
-            position: sticky;
-            left: 0;
-            z-index: 20;
-            background-color: var(--white);
-            font-weight: 700;
-            color: var(--primary);
-            text-align: left;
-            border-right: 2px solid var(--primary);
+            position: sticky; left: 0; z-index: 10; background-color: var(--white); font-weight: 700; color: var(--primary); text-align: left; border-right: 2px solid var(--primary);
         }
-        
-        table th:first-child {
-            background-color: var(--primary);
-            color: var(--white);
-            z-index: 21;
-        }
+        table th:first-child { background-color: var(--primary); color: var(--white); z-index: 11; }
 
-        /* Clases para destacar los meses pronosticados (25 al 30) */
-        .forecast-header {
-            background-color: var(--accent) !important;
-            color: var(--white) !important;
-        }
+        /* Colores para Pronóstico */
+        .forecast-header { background-color: var(--accent) !important; color: var(--white) !important; }
+        .forecast-cell { background-color: var(--forecast-bg) !important; color: var(--accent); font-weight: 700; }
 
-        .forecast-cell {
-            background-color: var(--forecast-bg) !important;
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-        
-        tr:hover {
-            background-color: #f1f5f9;
-        }
-
-        /* Cajas de Alertas y Análisis */
-        .highlight-box {
-            background-color: #eff6ff;
-            border-left: 4px solid var(--accent);
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-            font-size: 0.95rem;
-            color: var(--secondary);
-        }
-
-        .alert-box {
-            background-color: #fef2f2;
-            border-left: 4px solid #ef4444;
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-            font-size: 0.95rem;
-            color: #7f1d1d;
-        }
-
-        .success-box {
-            background-color: #f0fdf4;
-            border-left: 4px solid var(--success);
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-            font-size: 0.95rem;
-            color: #14532d;
-        }
-
-        .metric-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .metric {
-            background: var(--white);
-            padding: 2rem 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        }
-
-        .metric h4 {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric .value {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            header {
-                padding: 4rem 1rem;
-            }
-            .card {
-                padding: 1.5rem;
-            }
-        }
+        .highlight-box { background-color: #eff6ff; border-left: 4px solid var(--accent); padding: 1.2rem; border-radius: 0 8px 8px 0; margin-top: 1rem; font-size: 0.95rem; color: var(--secondary); }
+        .success-box { background-color: #f0fdf4; border-left: 4px solid var(--success); padding: 1.2rem; border-radius: 0 8px 8px 0; margin-top: 1rem; font-size: 0.95rem; color: #14532d; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Análisis y Pronósticos Financieros</h1>
-        <p>Informe Ejecutivo: Agroindustrias del Tolima S.A.S. | Horizonte a 6 Meses</p>
+        <h1>Pronósticos y Series Temporales</h1>
+        <p>Informe Ejecutivo 12 Tablas: Agroindustrias del Tolima S.A.S. | Horizonte a 6 Meses</p>
     </header>
 
     <div class="container">
         
-        <!-- Actividad 0 -->
+        <!-- Tabla 2 y 3 -->
         <section class="card">
             <div class="card-header">
-                <h2>Actividad 0. Contexto Corporativo</h2>
+                <h2>Tabla 2 & 3. Histórico (24 Meses) y Análisis EDA</h2>
             </div>
-            <div class="grid-2">
-                <div>
-                    <h3>Perfil de la Empresa</h3>
-                    <p><strong>Agroindustrias del Tolima S.A.S.</strong>, fundada en 2018 y con sede en Ibagué, se especializa en derivados agrícolas premium. Actualmente enfrenta retos críticos en la gestión de inventarios debido a la estacionalidad de la demanda.</p>
-                </div>
-                <div>
-                    <h3>Parámetros del Estudio (Grupo 1)</h3>
-                    <ul>
-                        <li><strong>Variables Críticas:</strong> Ventas, Costos, Gastos Administrativos, Inventario, Clientes, Pedidos.</li>
-                        <li><strong>Hipótesis Central:</strong> Tendencia creciente del 5% mensual con estacionalidad cíclica del ±20%.</li>
-                        <li><strong>Horizonte:</strong> Pronóstico a 6 meses.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Actividad 1 -->
-        <section class="card">
-            <div class="card-header">
-                <h2>Actividad 1. Generación de Datos Aleatorios Controlados (100 Meses)</h2>
-            </div>
-            <p>Se generó una base de datos histórica robusta de 100 meses simulando el comportamiento de ventas del Grupo 1, incorporando una tendencia alcista del 5%, fluctuación estacional (±20%) y un factor de ruido aleatorio.</p>
+            <p>Se extrajeron intactos los primeros 24 registros de la Base (Tabla 1) para el entrenamiento de los modelos. Se calculó la estadística descriptiva evidenciando una <strong>alta dispersión</strong> originada por el componente tendencial y estacional.</p>
             
-            <div class="grid-2">
-                <div>
-                    <h3>Tabla de 100 Datos Generados</h3>
-                    <div class="table-responsive table-scroll-vertical">
-                        <table style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th style="position: sticky; top: 0;">Mes</th>
-                                    <th style="position: sticky; top: 0;">Ventas (Miles $)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla100Datos">
-                                <!-- Llenado dinámico por JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div>
-                    <h3>Comportamiento a Largo Plazo</h3>
-                    <div class="chart-container" style="height: 350px;">
-                        <canvas id="chart100"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="highlight-box">
-                <strong>Análisis Técnico de la Generación:</strong> Como se observa en la gráfica de 100 meses, mantener un crecimiento perpetuo del 5% genera un comportamiento exponencial insostenible operativamente. Por esto, a partir de la Actividad 2, los datos se truncan a los primeros 24 meses, estabilizando el análisis en el tope real de los $150.000 miles de pesos.
-            </div>
-        </section>
-
-        <!-- Actividad 2 -->
-        <section class="card">
-            <div class="card-header">
-                <h2>Actividad 2. Análisis Exploratorio de Series Temporales (EDA)</h2>
-            </div>
-            <p>Filtro aplicado: Análisis de los <strong>24 meses históricos recientes</strong> para la toma de decisiones gerenciales.</p>
-            
-            <h3>Estadísticos Descriptivos (Ventas Mensuales n=24)</h3>
             <div class="table-responsive">
-                <table style="width: 100%;">
+                <table>
                     <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th>Mínimo</th>
-                            <th>Máximo</th>
-                            <th>Media</th>
-                            <th>Mediana</th>
-                            <th>Desviación Estándar</th>
-                        </tr>
+                        <tr><th>Estadístico</th><th>Ventas Reales (M1-M24)</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Ventas (Miles $)</td>
-                            <td>$ 51.000</td>
-                            <td>$ 150.000</td>
-                            <td>$ 100.865</td>
-                            <td>$ 97.000</td>
-                            <td>$ 33.150</td>
-                        </tr>
+                        <tr><td>N (Observaciones)</td><td>24</td></tr>
+                        <tr><td>Mínimo</td><td>$ 53.275</td></tr>
+                        <tr><td>Máximo</td><td>$ 148.445</td></tr>
+                        <tr><td>Media</td><td>$ 89.144</td></tr>
+                        <tr><td>Coeficiente de Variación</td><td>30.16 %</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="chart-container">
-                <canvas id="chartEDA"></canvas>
-            </div>
-            
-            <div class="highlight-box">
-                <strong>📊 Interpretación de la Gráfica:</strong> Se evidencia una clara <strong>tendencia ascendente</strong> estructural (crecimiento mensual). Sobre esta línea base, se aprecia una fuerte <strong>estacionalidad o ciclicidad</strong> (picos y valles consistentes), generada por los ciclos de cosecha agrícola. La volatilidad menor entre puntos refleja el <strong>componente irregular (ruido)</strong>.
-            </div>
+            <div class="chart-container"><canvas id="chartHist"></canvas></div>
         </section>
 
-        <!-- Actividad 3 -->
+        <!-- Tabla 4: Naïve -->
         <section class="card">
-            <div class="card-header">
-                <h2>Actividad 3. Método Naïve (Último Valor)</h2>
-            </div>
-            <p>Proyección estática del último dato. <em>Desplaza la tabla horizontalmente para ver la trazabilidad de los 30 meses.</em></p>
-            
-            <div class="table-responsive">
-                <table id="tablaNaive">
-                    <!-- Generado por JS para 30 columnas -->
-                </table>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="chartNaive"></canvas>
-            </div>
-
-            <div class="alert-box">
-                <strong>Fallo Gerencial:</strong> Este método ignora completamente la tendencia alcista y la estacionalidad de la empresa. Asume que el mercado se "congela", lo que derivaría inevitablemente en graves quiebres de stock. <em>(MAPE: 18.94%)</em>.
-            </div>
+            <div class="card-header"><h2>Tabla 4. Método Naïve (Último Valor)</h2></div>
+            <p>Este método estático arrastra el valor del Mes 24. <em>Desplaza la tabla hacia la derecha para observar cómo se iluminan los meses pronosticados (Mes 25 al 30).</em></p>
+            <div class="table-responsive"><table id="tblNaive"></table></div>
+            <div class="chart-container"><canvas id="chartNaive"></canvas></div>
+            <div class="highlight-box"><strong>Interpretación:</strong> Rechazado. Ignora la tendencia alcista. Mantener inventario plano causará quiebres de stock.</div>
         </section>
 
-        <!-- Actividad 4 -->
+        <!-- Tabla 5: Promedio Simple -->
         <section class="card">
-            <div class="card-header">
-                <h2>Actividad 4. Promedio Simple</h2>
-            </div>
-            <p>Promedio aritmético de los 24 meses proyectado linealmente.</p>
-            
-            <div class="table-responsive">
-                <table id="tablaPromSimple">
-                    <!-- Generado por JS -->
-                </table>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="chartPromSimple"></canvas>
-            </div>
-
-            <div class="alert-box">
-                <strong>Fallo Gerencial:</strong> Presenta el peor desempeño general. Al promediar, queda drásticamente sesgado por los bajos ingresos del primer año operativo, proyectando un escenario irreal a la baja. <em>(MAPE: 26.70%)</em>.
-            </div>
+            <div class="card-header"><h2>Tabla 5. Promedio Simple</h2></div>
+            <p>Calcula la media de todos los datos históricos disponibles.</p>
+            <div class="table-responsive"><table id="tblPromSimple"></table></div>
+            <div class="chart-container"><canvas id="chartPromSimple"></canvas></div>
+            <div class="highlight-box"><strong>Interpretación:</strong> Obsoleto. El promedio histórico tira la proyección hacia abajo, alejándose drásticamente de la realidad de ventas actual de la empresa.</div>
         </section>
 
-        <!-- Actividad 5 -->
+        <!-- Tabla 6: Promedio Móvil -->
         <section class="card">
-            <div class="card-header">
-                <h2>Actividad 5. Promedio Móvil (n=3)</h2>
-            </div>
-            <p>Se justificó matemáticamente el uso de una ventana corta para agilizar la reacción al crecimiento reciente.</p>
-            
-            <div class="table-responsive">
-                <table id="tablaMovil">
-                    <!-- Generado por JS -->
-                </table>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="chartMovil"></canvas>
-            </div>
-
-            <div class="highlight-box">
-                <strong>Análisis Técnico:</strong> El promedio móvil logra suavizar el <strong>componente irregular</strong>, pero presenta un evidente rezago frente a la fuerte <strong>tendencia</strong> alcista, aplanando los picos estacionales críticos del negocio.
-            </div>
+            <div class="card-header"><h2>Tabla 6. Promedio Móvil (Ventana Representativa n=3)</h2></div>
+            <p>Reacciona mejor a la tendencia reciente, filtrando el componente irregular.</p>
+            <div class="table-responsive"><table id="tblMovil"></table></div>
+            <div class="chart-container"><canvas id="chartMovil"></canvas></div>
         </section>
 
-        <!-- Actividad 6 -->
+        <!-- Tabla 7: SES -->
         <section class="card">
-            <div class="card-header">
-                <h2>Actividad 6. Suavización Exponencial Simple (α=0.7)</h2>
-            </div>
-            <p>Se determinó que un Alpha alto (0.7) otorga el mejor peso a los datos recientes.</p>
-            
-            <div class="table-responsive">
-                <table id="tablaSuavizacion">
-                    <!-- Generado por JS -->
-                </table>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="chartSuavizacion"></canvas>
-            </div>
-
-            <div class="highlight-box">
-                <strong>Análisis Técnico:</strong> Funciona mejor que los promedios porque reacciona más rápido, sin embargo, su arquitectura matemática no está diseñada para absorber una <strong>tendencia creciente</strong> estructural, generando de nuevo una proyección estancada a mediano plazo.
-            </div>
+            <div class="card-header"><h2>Tabla 7. Suavización Exponencial Simple (α=0.9)</h2></div>
+            <p>El mejor parámetro de SES para el histórico. Otorga altísimo peso a los datos recientes.</p>
+            <div class="table-responsive"><table id="tblSES"></table></div>
+            <div class="chart-container"><canvas id="chartSES"></canvas></div>
         </section>
 
-        <!-- Actividad 7 -->
+        <!-- Tabla 8: Holt -->
         <section class="card">
-            <div class="card-header">
-                <h2>Actividad 7. Método de Holt (Suavización Doble)</h2>
-            </div>
-            <p>Parámetros óptimos seleccionados: Nivel <strong>α=0.5</strong> y Tendencia <strong>β=0.3</strong>.</p>
-            
-            <div class="table-responsive">
-                <table id="tablaHolt">
-                    <!-- Generado por JS -->
-                </table>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="chartHolt"></canvas>
-            </div>
-
-            <div class="highlight-box">
-                <strong>Análisis Técnico:</strong> Holt soluciona el problema de la proyección estancada, logrando capturar exitosamente la <strong>tendencia alcista</strong>. No obstante, su pronóstico sigue siendo una línea recta inclinada, fallando en predecir la <strong>estacionalidad cíclica</strong> de las cosechas.
-            </div>
+            <div class="card-header"><h2>Tabla 8. Método de Holt (Doble Suavización)</h2></div>
+            <p>La combinación <strong>α=0.7, β=0.5</strong> logra capturar la pendiente (crecimiento).</p>
+            <div class="table-responsive"><table id="tblHolt"></table></div>
+            <div class="chart-container"><canvas id="chartHolt"></canvas></div>
+            <div class="highlight-box"><strong>Interpretación:</strong> Logra interpretar la tendencia, pero al trazar una línea recta ascendente, pierde por completo la capacidad de anticipar los valles estacionales.</div>
         </section>
 
-        <!-- Actividad 8 -->
+        <!-- Tabla 9: Regresión -->
         <section class="card">
-            <div class="card-header">
-                <h2>Actividad 8. Regresión Lineal Simple</h2>
-            </div>
-            <p>Cálculo de la línea de mejor ajuste histórico proyectada a futuro.</p>
-            
-            <div class="table-responsive">
-                <table id="tablaRegresion">
-                    <!-- Generado por JS -->
-                </table>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="chartRegresion"></canvas>
-            </div>
-
-            <div class="alert-box">
-                <strong>Cuidado Gerencial:</strong> Aunque arrojó el error porcentual más bajo (MAPE 13.95%), es un modelo <strong>ciego ante la estacionalidad</strong> (picos y valles), por lo que tomar decisiones sobre esta línea recta causaría desabastecimientos en temporada alta y excesos en temporada baja.
-            </div>
+            <div class="card-header"><h2>Tabla 9. Regresión Lineal Simple</h2></div>
+            <p>Ecuación de ajuste histórico por mínimos cuadrados.</p>
+            <div class="table-responsive"><table id="tblRegresion"></table></div>
+            <div class="chart-container"><canvas id="chartRegresion"></canvas></div>
         </section>
 
-        <!-- Actividad 9 -->
+        <!-- Tabla 10: ARIMA -->
         <section class="card">
-            <div class="card-header">
-                <h2>Actividad 9. Modelo ARIMA (Box-Jenkins)</h2>
-            </div>
-            <p>Configuración integral <strong>ARIMA (1,1,1)</strong> con componentes autorregresivos y de media móvil.</p>
-            
-            <div class="table-responsive">
-                <table id="tablaArima">
-                    <!-- Generado por JS -->
-                </table>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="chartArima"></canvas>
-            </div>
-
-            <div class="success-box">
-                <strong>Análisis Técnico Definitivo:</strong> La curva ARIMA logra interpretar todas las dimensiones simultáneamente. Acompaña la <strong>tendencia ascendente</strong>, modela con precisión la <strong>estacionalidad y ciclicidad</strong>, y filtra el <strong>componente irregular</strong>, ofreciendo un plan de compras e inventario realista.
-            </div>
+            <div class="card-header"><h2>Tabla 10. Modelo ARIMA (1,1,1)</h2></div>
+            <p>Integra componentes autorregresivos (p=1), diferenciación para tendencia (d=1) y promedios móviles (q=1).</p>
+            <div class="table-responsive"><table id="tblArima"></table></div>
+            <div class="chart-container"><canvas id="chartArima"></canvas></div>
+            <div class="success-box"><strong>Interpretación:</strong> Captura eficientemente la inercia alcista real y estabiliza el margen de ruido, brindando el pronóstico operativo más confiable para el próximo semestre.</div>
         </section>
 
-        <!-- Actividad 10 -->
+        <!-- Tabla 11 y 12 -->
         <section class="card" style="border-top: 5px solid var(--success);">
-            <div class="card-header">
-                <h2>Actividad 10. Dashboard Gerencial y Veredicto Final</h2>
-            </div>
-            
-            <div class="metric-cards">
-                <div class="metric">
-                    <h4>Modelo Ganador</h4>
-                    <div class="value" style="color: var(--success);">ARIMA (1,1,1)</div>
-                </div>
-                <div class="metric">
-                    <h4>Error Medio (MAPE)</h4>
-                    <div class="value">17.33%</div>
-                </div>
-                <div class="metric">
-                    <h4>Horizonte</h4>
-                    <div class="value">6 Meses</div>
-                </div>
-            </div>
-
-            <h3>Torneo de Errores Históricos (Ranking)</h3>
+            <div class="card-header"><h2>Tabla 11 & 12. Consolidación de Errores y Ranking</h2></div>
             <div class="table-responsive">
-                <table style="width: 100%;">
+                <table>
                     <thead>
-                        <tr>
-                            <th>Posición</th>
-                            <th>Modelo Evaluado</th>
-                            <th>MAPE (%)</th>
-                            <th>MSE (Millones)</th>
-                            <th>Veredicto Operativo</th>
-                        </tr>
+                        <tr><th>Modelo</th><th>MAPE Histórico (%)</th><th>Veredicto</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Regresión Lineal</td>
-                            <td>13.95%</td>
-                            <td>304.51</td>
-                            <td style="color: #ef4444; font-weight:600;">Inviable (Ignora estacionalidad)</td>
-                        </tr>
-                        <tr style="background-color: #f0fdf4; border: 2px solid var(--success);">
-                            <td><strong style="color: var(--success);">2</strong></td>
-                            <td><strong style="color: var(--success);">ARIMA (1,1,1)</strong></td>
-                            <td><strong style="color: var(--success);">17.33%</strong></td>
-                            <td><strong style="color: var(--success);">315.82</strong></td>
-                            <td><strong style="color: var(--success);">ÓPTIMO GLOBAL</strong></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Suavización Simple (α=0.7)</td>
-                            <td>17.95%</td>
-                            <td>340.12</td>
-                            <td>Rechazado (Rezago de tendencia)</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Promedio Móvil (n=3)</td>
-                            <td>18.87%</td>
-                            <td>380.99</td>
-                            <td>Rechazado (Reacción tardía)</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Naïve (Último Valor)</td>
-                            <td>18.94%</td>
-                            <td>385.00</td>
-                            <td>Rechazado (Estático)</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Método de Holt</td>
-                            <td>19.11%</td>
-                            <td>372.93</td>
-                            <td>Rechazado (Línea recta)</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Promedio Simple</td>
-                            <td>26.70%</td>
-                            <td>1136.44</td>
-                            <td>Obsoleto para el caso</td>
-                        </tr>
+                        <tr style="background-color: #f0fdf4;"><td><strong style="color: var(--success);">ARIMA (1,1,1)</strong></td><td><strong style="color: var(--success);">8.26 %</strong></td><td><strong style="color: var(--success);">ÓPTIMO GLOBAL</strong></td></tr>
+                        <tr><td>Naïve (Último Valor)</td><td>9.01 %</td><td>Rechazado (Estático)</td></tr>
+                        <tr><td>SES (α=0.9)</td><td>9.43 %</td><td>Rechazado (Estancado)</td></tr>
+                        <tr><td>Holt (α=0.7, β=0.5)</td><td>10.68 %</td><td>Rechazado (Recta)</td></tr>
+                        <tr><td>Regresión Lineal</td><td>13.72 %</td><td>Rechazado (Sin ciclos)</td></tr>
+                        <tr><td>Promedio Simple</td><td>21.56 %</td><td>Totalmente Obsoleto</td></tr>
                     </tbody>
                 </table>
             </div>
-            
-            <p style="margin-top: 2rem; font-size: 1.1rem;">
-                <strong>Justificación Final:</strong> Aunque la Regresión Lineal presenta el error porcentual histórico más bajo, se descarta técnicamente al ser incapaz de modelar la naturaleza agrícola (fluctuante) del inventario de <em>Agroindustrias del Tolima S.A.S.</em> El modelo <strong>ARIMA</strong> se adopta como la solución global porque equilibra un margen de error altamente competitivo con la capacidad algorítmica de anticipar tanto la macro-tendencia de crecimiento como los ciclos intra-anuales de la demanda.
-            </p>
+            <p><em>El modelo <strong>ARIMA</strong> es seleccionado como definitivo al registrar el menor error (MAPE 8.26%) en periodo de entrenamiento.</em></p>
         </section>
 
+        <!-- Tabla 13 -->
+        <section class="card">
+            <div class="card-header"><h2>Tabla 13. Plan de Acción Gerencial</h2></div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr><th>Área</th><th>Acción Estratégica</th><th>Plazo</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Ventas</td><td>Alinear metas comerciales con pronóstico alcista ARIMA.</td><td>Mes 25</td></tr>
+                        <tr><td>Producción</td><td>Compra anticipada de insumos para soportar mayor demanda.</td><td>Mes 25</td></tr>
+                        <tr><td>Inventario</td><td>Cálculo de Stock de Seguridad basado en ARIMA, no en promedios.</td><td>Mes 25</td></tr>
+                        <tr><td>Finanzas</td><td>Prever línea de capital de trabajo por incremento de costos base.</td><td>Mes 26</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 
     <script>
-        // --- DATOS BASE (24 reales) ---
-        const ventasReales24 = [52000, 58000, 51000, 64000, 68000, 62000, 75000, 81000, 74000, 89000, 95000, 86000, 102000, 109000, 99000, 117000, 125000, 114000, 134000, 142000, 129000, 148000, 150000, 149773];
+        // --- DATOS REALES (EXTRAIDOS DIRECTO DEL EXCEL FINAL) ---
+        const ventasReales24 = [53275,68534,69987,69581,61104,58326,53642,63494,60592,67468,64515,95563,106981,102658,109346,112298,114183,115310,106455,99011,109100,104791,124796,148445];
         
-        // --- 1. GENERACIÓN TABLA 100 DATOS ---
-        let ventas100 = [...ventasReales24];
-        for(let i=24; i<100; i++) {
-            let tendencia = 50000 * Math.pow(1.03, i);
-            let estacionalidad = 1 + (0.20 * Math.sin(i * Math.PI / 6)); 
-            let ruido = 1 + (Math.random() * 0.10 - 0.05);
-            ventas100.push(Math.round(tendencia * estacionalidad * ruido));
-        }
+        // Las matrices incluyen los 24 meses históricos + los 6 meses de pronóstico (Total 30)
+        const dNaive = [null,53275,68534,69987,69581,61104,58326,53642,63494,60592,67468,64515,95563,106981,102658,109346,112298,114183,115310,106455,99011,109100,104791,124796,148445,148445,148445,148445,148445,148445];
+        const dPromSimple = [null,53275,60904,63932,65344,64496,63468,62064,62243,62059,62600,62774,65507,68697,71123,73671,76085,78326,80381,81753,82616,83877,84828,86566,89144,89144,89144,89144,89144,89144];
+        const dMovil = [null,null,null,63932,69367,66891,63004,57691,58487,59243,63851,64192,75849,89020,101734,106328,108101,111942,113930,111983,106925,104855,104301,112896,126011,133084,135847,131647,133526,133673];
+        const dSES = [62964,54244,67105,69699,69593,61953,58689,54147,62559,60789,66800,64744,92481,105531,102945,108706,111939,113959,115175,107327,99843,108174,105129,122829,145883,145883,145883,145883,145883,145883];
+        const dHolt = [62898,52728,65890,72290,72977,63094,56516,50258,59909,61012,68416,67205,98500,118850,116261,117746,118351,118393,118116,107753,96373,104476,104001,125140,156193,170932,185672,200411,215150,229890];
+        const dRegresion = [50496,53857,57218,60578,63939,67300,70660,74021,77382,80742,84103,87464,90824,94185,97546,100906,104267,107628,110988,114349,117710,121070,124431,127792,131152,134513,137874,141234,144595,147956];
+        const dArima = [null,66573,73374,70739,69542,59013,57472,52419,65821,60067,69119,63922,103161,110411,101872,110929,113154,114717,115631,104300,97003,111421,103919,129651,154664,156701,157369,157587,157659,157683];
 
-        const tbody100 = document.getElementById('tabla100Datos');
-        ventas100.forEach((valor, index) => {
-            let tr = document.createElement('tr');
-            tr.innerHTML = `<td style="text-align:left; padding-left:1rem;">Mes ${index + 1}</td><td>$ ${valor.toLocaleString('es-CO')}</td>`;
-            tbody100.appendChild(tr);
-        });
+        // --- CONSTRUCTOR DE TABLAS 30 COLUMNAS ---
+        function renderTabla(id, titulo, arregloDatos) {
+            const table = document.getElementById(id);
+            if (!table) return;
 
-        // --- 2. GENERADOR DE TABLAS 30 COLUMNAS (HISTÓRICO + PRONÓSTICO) ---
-        // Construye las tablas de los modelos dinámicamente con color diferenciado
-        function generarTablaPronostico(idTabla, nombreModelo, dataModelo) {
-            const tabla = document.getElementById(idTabla);
-            
-            // Construir encabezado (Mes 1 al 30)
-            let thead = '<thead><tr><th>Datos / Tiempo</th>';
+            // Encabezados (1 al 30)
+            let thead = '<thead><tr><th>Mes / Dato</th>';
             for(let i=1; i<=30; i++) {
-                let clase = i > 24 ? 'class="forecast-header"' : '';
-                thead += `<th ${clase}>Mes ${i}</th>`;
+                let esF = i > 24 ? 'class="forecast-header"' : '';
+                thead += `<th ${esF}>M ${i}</th>`;
             }
             thead += '</tr></thead>';
 
-            // Construir fila de Ventas Reales
+            // Fila de Realidad
             let tbody = '<tbody><tr><td>Ventas Reales</td>';
             for(let i=0; i<30; i++) {
                 if(i < 24) tbody += `<td>$ ${ventasReales24[i].toLocaleString('es-CO')}</td>`;
-                else tbody += `<td class="forecast-cell" style="color: #94a3b8; font-weight: normal;">-</td>`;
+                else tbody += `<td class="forecast-cell" style="color: #cbd5e1; font-weight: normal;">-</td>`;
             }
             tbody += '</tr>';
 
-            // Construir fila del Pronóstico
-            tbody += `<tr><td>${nombreModelo}</td>`;
+            // Fila de Pronóstico
+            tbody += `<tr><td>${titulo}</td>`;
             for(let i=0; i<30; i++) {
-                let valor = dataModelo[i];
-                let claseTD = i >= 24 ? 'class="forecast-cell"' : '';
-                
-                if (valor === null || valor === undefined) {
-                    tbody += `<td ${claseTD}>-</td>`;
-                } else {
-                    tbody += `<td ${claseTD}>$ ${Math.round(valor).toLocaleString('es-CO')}</td>`;
-                }
+                let val = arregloDatos[i];
+                let esF = i >= 24 ? 'class="forecast-cell"' : '';
+                if(val === null || isNaN(val)) tbody += `<td ${esF}>-</td>`;
+                else tbody += `<td ${esF}>$ ${val.toLocaleString('es-CO')}</td>`;
             }
             tbody += '</tr></tbody>';
 
-            tabla.innerHTML = thead + tbody;
+            table.innerHTML = thead + tbody;
         }
 
-        // --- 3. DATOS DE PRONÓSTICOS (30 DATOS) ---
-        const dNaive = [...Array(24).fill(null), 149773, 149773, 149773, 149773, 149773, 149773];
-        const dPromSimple = [...Array(24).fill(null), 91246, 91246, 91246, 91246, 91246, 91246];
-        const dMovil = [...ventasReales24.map((v, i) => i > 2 ? (ventasReales24[i-1]+ventasReales24[i-2]+ventasReales24[i-3])/3 : null).slice(0,24), 149257, 149343, 149457, 149352, 149384, 149397];
-        const dSuavizacion = [...Array(24).fill(null), 149410, 149664, 149749, 149773, 149773, 149773];
-        const dHolt = [...Array(24).fill(null), 155230, 160100, 164970, 169840, 174710, 179580];
-        const dRegresion = ventasReales24.map((_, i) => 45000 + (4500 * i)).concat([154000, 158000, 162000, 166000, 170000, 174000]);
-        const dArima = [...Array(24).fill(null), 139166, 148291, 140441, 147194, 141385, 146383];
+        renderTabla('tblNaive', 'Pronóstico Naïve', dNaive);
+        renderTabla('tblPromSimple', 'Promedio Simple', dPromSimple);
+        renderTabla('tblMovil', 'Promedio Móvil n=3', dMovil);
+        renderTabla('tblSES', 'SES α=0.9', dSES);
+        renderTabla('tblHolt', 'Holt α=0.7', dHolt);
+        renderTabla('tblRegresion', 'Línea de Ajuste', dRegresion);
+        renderTabla('tblArima', 'Modelo ARIMA', dArima);
 
-        // Llenar las tablas en el HTML
-        generarTablaPronostico('tablaNaive', 'Pronóstico Naïve', dNaive);
-        generarTablaPronostico('tablaPromSimple', 'Promedio Simple', dPromSimple);
-        generarTablaPronostico('tablaMovil', 'Prom. Móvil (n=3)', dMovil);
-        generarTablaPronostico('tablaSuavizacion', 'Suavización', dSuavizacion);
-        generarTablaPronostico('tablaHolt', 'Método Holt', dHolt);
-        generarTablaPronostico('tablaRegresion', 'Regresión Lineal', dRegresion);
-        generarTablaPronostico('tablaArima', 'Pronóstico ARIMA', dArima);
-
-        // --- 4. CONFIGURACIÓN GLOBAL CHART.JS ---
+        // --- CONSTRUCTOR DE GRÁFICOS CHART.JS ---
         Chart.defaults.font.family = 'Open Sans';
-        const colorReal = '#1e293b';
-        const colorPred = '#2563eb';
-        const labels100 = Array.from({length: 100}, (_, i) => `Mes ${i+1}`);
-        const labels24 = Array.from({length: 24}, (_, i) => `Mes ${i+1}`);
-        const labels30 = Array.from({length: 30}, (_, i) => `Mes ${i+1}`);
-        
-        function crearGrafico(id, labelPred, dataPred, colorLineaPred, showHistLine = true) {
-            const datasets = [];
-            
-            if(showHistLine) {
-                datasets.push({
-                    label: 'Ventas Reales Históricas',
-                    data: ventasReales24,
-                    borderColor: colorReal,
-                    borderWidth: 2,
-                    tension: 0.3,
-                    pointRadius: 3
-                });
-            }
+        const lbls30 = Array.from({length: 30}, (_, i) => `Mes ${i+1}`);
+        const colReal = '#1e293b';
+        const colPred = '#2563eb';
 
-            datasets.push({
-                label: labelPred,
-                data: dataPred,
-                borderColor: colorLineaPred,
-                borderWidth: 3,
-                borderDash: [5, 5],
-                tension: 0.3,
-                pointBackgroundColor: colorLineaPred,
-                pointRadius: 4
-            });
-
+        function crearGrafico(id, lblPred, dataPred, clrLine) {
             new Chart(document.getElementById(id), {
                 type: 'line',
-                data: { labels: labels30, datasets: datasets },
+                data: {
+                    labels: lbls30,
+                    datasets: [
+                        { label: 'Ventas Históricas', data: ventasReales24, borderColor: colReal, borderWidth: 2, tension: 0.3, pointRadius: 3 },
+                        { label: lblPred, data: dataPred, borderColor: clrLine, borderWidth: 3, borderDash: [5,5], tension: 0.3, pointBackgroundColor: clrLine, pointRadius: 4 }
+                    ]
+                },
                 options: { responsive: true, maintainAspectRatio: false }
             });
         }
 
-        // Gráfico Actividad 1 (100 Datos)
-        new Chart(document.getElementById('chart100'), {
+        // Gráfico Histórico Puro (Tabla 2/3)
+        new Chart(document.getElementById('chartHist'), {
             type: 'line',
             data: {
-                labels: labels100,
-                datasets: [{
-                    label: 'Ventas Generadas a Largo Plazo (100 meses)',
-                    data: ventas100,
-                    borderColor: '#94a3b8',
-                    backgroundColor: 'rgba(148, 163, 184, 0.1)',
-                    borderWidth: 1.5,
-                    fill: true,
-                    pointRadius: 0
-                }]
+                labels: Array.from({length: 24}, (_, i) => `M ${i+1}`),
+                datasets: [{ label: 'Ventas Reales Entrenamiento', data: ventasReales24, borderColor: colReal, backgroundColor: 'rgba(30,41,59,0.1)', borderWidth: 3, fill: true, tension: 0.3 }]
             },
             options: { responsive: true, maintainAspectRatio: false }
         });
 
-        // Gráfico Actividad 2 (EDA 24 meses)
-        new Chart(document.getElementById('chartEDA'), {
-            type: 'line',
-            data: {
-                labels: labels24,
-                datasets: [{
-                    label: 'Serie Temporal Truncada (Ventas 24 Meses)',
-                    data: ventasReales24,
-                    borderColor: colorReal,
-                    backgroundColor: 'rgba(30, 41, 59, 0.05)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.3
-                }]
-            },
-            options: { responsive: true, maintainAspectRatio: false }
-        });
-
-        // Inicializar los 7 gráficos de los métodos
-        crearGrafico('chartNaive', 'Pronóstico Naïve', dNaive, '#ef4444'); 
-        crearGrafico('chartPromSimple', 'Pronóstico Prom. Simple', dPromSimple, '#f97316'); 
-        crearGrafico('chartMovil', 'Pronóstico Prom. Móvil (n=3)', dMovil, colorPred); 
-        crearGrafico('chartSuavizacion', 'Pronóstico Suavización (a=0.7)', dSuavizacion, colorPred); 
-        crearGrafico('chartHolt', 'Pronóstico Holt', dHolt, '#8b5cf6'); 
-        crearGrafico('chartRegresion', 'Pronóstico Regresión', dRegresion, '#14b8a6'); 
+        // Gráficos de los Modelos
+        crearGrafico('chartNaive', 'Proyección Naïve', dNaive, '#ef4444');
+        crearGrafico('chartPromSimple', 'Proyección Promedio', dPromSimple, '#f97316');
+        crearGrafico('chartMovil', 'Proyección Móvil', dMovil, colPred);
+        crearGrafico('chartSES', 'Proyección SES', dSES, colPred);
+        crearGrafico('chartHolt', 'Proyección Holt', dHolt, '#8b5cf6');
+        crearGrafico('chartRegresion', 'Proyección Regresión', dRegresion, '#14b8a6');
         
-        // Gráfico ARIMA (Óptimo)
+        // Gráfico ARIMA Destacado
         new Chart(document.getElementById('chartArima'), {
             type: 'line',
             data: {
-                labels: labels30,
+                labels: lbls30,
                 datasets: [
-                    {
-                        label: 'Ventas Reales Históricas',
-                        data: ventasReales24,
-                        borderColor: colorReal,
-                        borderWidth: 3,
-                        tension: 0.3
-                    },
-                    {
-                        label: 'Pronóstico ARIMA Óptimo',
-                        data: dArima,
-                        borderColor: '#0f766e', 
-                        backgroundColor: 'rgba(15, 118, 110, 0.15)',
-                        borderWidth: 4,
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: '#0f766e',
-                        pointRadius: 6
-                    }
+                    { label: 'Ventas Históricas', data: ventasReales24, borderColor: colReal, borderWidth: 3, tension: 0.3 },
+                    { label: 'Pronóstico ARIMA (Óptimo)', data: dArima, borderColor: '#0f766e', backgroundColor: 'rgba(15,118,110,0.15)', borderWidth: 4, fill: true, tension: 0.3, pointBackgroundColor: '#0f766e', pointRadius: 5 }
                 ]
             },
             options: { responsive: true, maintainAspectRatio: false }
         });
-
     </script>
 </body>
 </html>
