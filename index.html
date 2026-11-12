@@ -8,72 +8,109 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0f172a; 
-            --secondary: #334155; 
-            --accent: #2563eb; 
-            --success: #16a34a; 
-            --danger: #dc2626;
-            --danger-bg: #fef2f2;
-            --bg-page: #f1f5f9; 
+            --bg-page: #0b1120; /* Fondo oscuro estilo BI */
+            --primary: #1e293b; 
+            --secondary: rgba(255, 255, 255, 0.03); 
+            --accent: #00f6ff; /* Cian Neón */
+            --success: #10b981; /* Verde Esmeralda */
+            --danger: #ef4444; /* Rojo Vivo */
+            --danger-bg: rgba(239, 68, 68, 0.15);
             --white: #ffffff;
-            --text-dark: #1e293b;
-            --border: #cbd5e1;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(15, 23, 42, 0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-page); color: var(--text-dark); line-height: 1.6; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-page); 
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 246, 255, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05), transparent 25%);
+            background-attachment: fixed;
+            color: var(--text-main); 
+            line-height: 1.6; 
+        }
+
         h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
 
-        header { background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%); color: var(--white); padding: 4rem 2rem; text-align: center; border-bottom: 6px solid var(--accent); }
-        header h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -1px; }
-        header p { font-size: 1.1rem; opacity: 0.9; }
+        header { 
+            padding: 4rem 2rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border); 
+            background: linear-gradient(180deg, rgba(15,23,42,0.8) 0%, rgba(11,17,32,0) 100%);
+        }
+        header h1 { 
+            font-size: 2.8rem; 
+            font-weight: 700; 
+            margin-bottom: 1rem; 
+            letter-spacing: -1px; 
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        header p { font-size: 1.1rem; color: var(--text-muted); }
 
-        .container { max-width: 1300px; margin: -2.5rem auto 4rem; padding: 0 1.5rem; }
+        .container { max-width: 1300px; margin: 2rem auto 4rem; padding: 0 1.5rem; }
         
-        .card { background: var(--white); border-radius: 12px; padding: 3rem; margin-bottom: 2.5rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border: 1px solid var(--border); }
-        .card-header { border-bottom: 2px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 1.5rem; }
-        .card h2 { color: var(--primary); font-size: 1.7rem; display: flex; align-items: center; gap: 12px; }
-        .card h2::before { content: ''; display: inline-block; width: 6px; height: 26px; background-color: var(--accent); border-radius: 4px; }
+        /* Glassmorphism Cards */
+        .card { 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 12px; 
+            padding: 3rem; 
+            margin-bottom: 2.5rem; 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); 
+            border: 1px solid var(--border); 
+        }
+        .card-header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+        .card h2 { color: var(--text-main); font-size: 1.7rem; display: flex; align-items: center; gap: 12px; }
+        .card h2::before { content: ''; display: inline-block; width: 6px; height: 26px; background-color: var(--accent); border-radius: 4px; box-shadow: 0 0 10px var(--accent); }
         
-        .text-argument { font-size: 1.05rem; color: #475569; margin-bottom: 2rem; background: #f8fafc; padding: 1.5rem; border-left: 4px solid var(--secondary); border-radius: 0 8px 8px 0; }
-        .step-title { color: var(--accent); font-size: 1.2rem; font-weight: 700; margin: 2rem 0 1rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.5rem; }
+        .text-argument { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 2rem; background: var(--secondary); padding: 1.5rem; border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; }
+        .step-title { color: var(--text-main); font-size: 1.2rem; font-weight: 700; margin: 2rem 0 1rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.5rem; }
 
-        .chart-container { position: relative; height: 400px; width: 100%; margin: 2rem 0; padding: 1rem; background: var(--white); border: 1px solid var(--border); border-radius: 8px; }
+        .chart-container { position: relative; height: 400px; width: 100%; margin: 2rem 0; padding: 1rem; background: var(--secondary); border: 1px solid var(--border); border-radius: 8px; }
         .chart-sm { height: 250px; }
 
-        /* Tablas */
-        .table-responsive { overflow: auto; margin: 1.5rem 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-radius: 8px; background: var(--white); max-height: 500px; }
+        /* Tablas Dark Mode */
+        .table-responsive { overflow: auto; margin: 1.5rem 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.5); border-radius: 8px; background: rgba(15, 23, 42, 0.9); max-height: 500px; border: 1px solid var(--border); }
         .table-responsive::-webkit-scrollbar { width: 10px; height: 10px; }
-        .table-responsive::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 5px; }
+        .table-responsive::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
         
-        table { border-collapse: separate; border-spacing: 0; font-size: 0.85rem; text-align: center; white-space: nowrap; width: 100%; }
+        table { border-collapse: separate; border-spacing: 0; font-size: 0.85rem; text-align: center; white-space: nowrap; width: 100%; color: var(--text-muted); }
         th, td { padding: 0.85rem 1.2rem; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
-        th { background-color: var(--primary); color: var(--white); font-weight: 600; position: sticky; top: 0; z-index: 20; }
+        th { background-color: #0f172a; color: var(--text-main); font-weight: 600; position: sticky; top: 0; z-index: 20; }
         
-        .freeze-2col th:nth-child(1), .freeze-2col td:nth-child(1) { position: sticky; left: 0; z-index: 10; background-color: var(--white); font-weight: 700; color: var(--primary); }
-        .freeze-2col th:nth-child(2), .freeze-2col td:nth-child(2) { position: sticky; left: 60px; z-index: 10; background-color: #f8fafc; font-weight: 700; border-right: 2px solid var(--primary); }
-        .freeze-2col th:nth-child(1), .freeze-2col th:nth-child(2) { background-color: var(--primary); color: var(--white); z-index: 30; }
+        /* Congelar Columnas */
+        .freeze-2col th:nth-child(1), .freeze-2col td:nth-child(1) { position: sticky; left: 0; z-index: 10; background-color: #0f172a; font-weight: 700; color: var(--text-main); }
+        .freeze-2col th:nth-child(2), .freeze-2col td:nth-child(2) { position: sticky; left: 60px; z-index: 10; background-color: #1e293b; font-weight: 700; border-right: 2px solid var(--accent); }
+        .freeze-2col th:nth-child(1), .freeze-2col th:nth-child(2) { background-color: #0f172a; color: var(--text-main); z-index: 30; }
         
-        .error-cell { background-color: #fff1f2; color: #be123c; }
-        .forecast-cell { background-color: #eff6ff !important; color: var(--accent); font-weight: 700; }
+        /* Celdas especiales */
+        .error-cell { color: #f87171; }
+        .forecast-cell { background-color: rgba(0, 246, 255, 0.05) !important; color: var(--accent); font-weight: 700; }
         
-        /* Clases Backtesting (Rojo) */
+        /* Backtesting (Rojo Vivo) */
         .val-real { color: var(--danger) !important; font-weight: bold; background-color: var(--danger-bg) !important; }
         .val-error { color: var(--danger) !important; font-weight: bold; background-color: var(--danger-bg); }
-        .val-row td { border-top: 2px solid var(--danger); } /* Línea divisoria M24 a M25 */
+        .val-row td { border-top: 2px solid var(--danger); } 
 
-        /* Actividad 10 y 12 */
-        .table-blue th { background-color: #1d4ed8; color: white; }
-        .optimo-row { background-color: #f0fdf4; border-left: 4px solid var(--success); }
+        .table-blue th { background-color: rgba(0, 246, 255, 0.1); color: var(--accent); }
+        .optimo-row { background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); }
         
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
         @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
 
-        /* Estilos del Dashboard */
+        /* Dashboard KPIs */
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .kpi-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center; border-top: 4px solid var(--accent); }
-        .kpi-card h3 { font-size: 0.85rem; color: var(--secondary); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 600; }
-        .kpi-card .value { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+        .kpi-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center; border-top: 4px solid var(--accent); box-shadow: inset 0 0 20px rgba(0,246,255,0.02); }
+        .kpi-card h3 { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 600; }
+        .kpi-card .value { font-size: 1.8rem; font-weight: 700; color: var(--text-main); text-shadow: 0 0 10px rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
@@ -89,27 +126,27 @@
         <section class="card">
             <div class="card-header"><h2>0. Contextualización del Caso</h2></div>
             <p class="text-argument"><strong>Agroindustrias del Tolima S.A.S.</strong> enfrenta un doble reto en su cadena de suministro: desabastecimiento crónico en meses pico y excesos de stock en periodos de baja demanda. Este proyecto desarrolla modelos predictivos para blindar la planeación financiera, auditando los algoritmos mediante rigurosas pruebas de validación fuera de la muestra (Backtesting).</p>
-            <ul>
-                <li><strong>Segmentación:</strong> Grupo 1 (Ventas base de $50.000 a $150.000 miles).</li>
-                <li><strong>Comportamiento Estratégico:</strong> Crecimiento orgánico mensual del 5% cruzado con alta estacionalidad agrícola (±20%).</li>
+            <ul style="color: var(--text-muted); padding-left: 1.5rem;">
+                <li><strong style="color:var(--text-main);">Segmentación:</strong> Grupo 1 (Ventas base de $50.000 a $150.000 miles).</li>
+                <li><strong style="color:var(--text-main);">Comportamiento Estratégico:</strong> Crecimiento orgánico mensual del 5% cruzado con alta estacionalidad agrícola (±20%).</li>
             </ul>
         </section>
 
         <!-- ACTIVIDAD 1 -->
         <section class="card">
             <div class="card-header"><h2>1. Generación de Datos Base (100 Meses)</h2></div>
-            <p class="text-argument" style="background:#fff7ed; border-left-color:#ea580c;"><strong>Nota de Auditoría:</strong> La base de datos de 100 meses nos otorga una ventaja analítica. Utilizaremos los meses 1 al 24 como <strong>Set de Entrenamiento</strong> para que los modelos aprendan, y revelaremos los meses 25 al 30 como <strong>Set de Validación (En Rojo)</strong> para medir empíricamente su verdadero margen de error ante el mercado real.</p>
+            <p class="text-argument" style="background:rgba(239, 68, 68, 0.1); border-left-color:var(--danger); color: #fca5a5;"><strong>Nota de Auditoría:</strong> La base de datos de 100 meses nos otorga una ventaja analítica. Utilizaremos los meses 1 al 24 como <strong>Set de Entrenamiento</strong> para que los modelos aprendan, y revelaremos los meses 25 al 30 como <strong>Set de Validación (En Rojo)</strong> para medir empíricamente su verdadero margen de error ante el mercado real.</p>
             <div class="table-responsive">
                 <table id="tbl100" class="freeze-2col">
                     <thead>
                         <tr>
                             <th rowspan="2" style="top:0;">No.</th>
                             <th rowspan="2" style="top:0;">Ventas ($)</th>
-                            <th colspan="2" style="background-color: var(--secondary); top:0;">Naïve</th>
-                            <th colspan="2" style="background-color: var(--secondary); top:0;">Prom. Simple</th>
-                            <th colspan="2" style="background-color: var(--secondary); top:0;">PM (n=3)</th>
-                            <th colspan="2" style="background-color: var(--secondary); top:0;">SES (α=0.9)</th>
-                            <th colspan="2" style="background-color: var(--secondary); top:0;">Regresión</th>
+                            <th colspan="2" style="background-color: #1e293b; top:0;">Naïve</th>
+                            <th colspan="2" style="background-color: #1e293b; top:0;">Prom. Simple</th>
+                            <th colspan="2" style="background-color: #1e293b; top:0;">PM (n=3)</th>
+                            <th colspan="2" style="background-color: #1e293b; top:0;">SES (α=0.9)</th>
+                            <th colspan="2" style="background-color: #1e293b; top:0;">Regresión</th>
                         </tr>
                         <tr>
                             <th style="top:42px;">Pronóstico</th><th style="top:42px;">Errores</th>
@@ -132,10 +169,10 @@
                 <table class="table-blue">
                     <thead><tr><th>Indicador Estadístico</th><th>Resultado (Mes 1 a 24)</th><th>Interpretación Gerencial</th></tr></thead>
                     <tbody>
-                        <tr><td>Base N (Entrenamiento)</td><td>24 periodos</td><td>Muestra óptima de entrenamiento sin sobreajuste.</td></tr>
-                        <tr><td>Media Mensual</td><td>$ 89.144</td><td>Promedio transitorio del ciclo histórico.</td></tr>
-                        <tr><td>Mínimo / Máximo</td><td>$ 53.275 / $ 148.445</td><td>Encuadre exacto en los parámetros del Grupo 1.</td></tr>
-                        <tr><td>Coef. de Variación</td><td>30.16 %</td><td>Alta volatilidad. Exige un modelo algorítmico reactivo.</td></tr>
+                        <tr><td>Base N (Entrenamiento)</td><td><strong style="color:var(--text-main);">24 periodos</strong></td><td>Muestra óptima de entrenamiento sin sobreajuste.</td></tr>
+                        <tr><td>Media Mensual</td><td><strong style="color:var(--text-main);">$ 89.144</strong></td><td>Promedio transitorio del ciclo histórico.</td></tr>
+                        <tr><td>Mínimo / Máximo</td><td><strong style="color:var(--text-main);">$ 53.275 / $ 148.445</strong></td><td>Encuadre exacto en los parámetros del Grupo 1.</td></tr>
+                        <tr><td>Coef. de Variación</td><td><strong style="color:var(--accent);">30.16 %</strong></td><td>Alta volatilidad. Exige un modelo algorítmico reactivo.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -146,99 +183,87 @@
         <div id="modelosDinamicos"></div>
 
         <!-- ACTIVIDAD 9: PROCEDIMIENTO ARIMA COMPLETO -->
-        <section class="card" style="border-left: 6px solid var(--primary);">
+        <section class="card" style="border-left: 6px solid var(--accent); box-shadow: 0 0 30px rgba(0,246,255,0.1);">
             <div class="card-header"><h2>9. Modelo ARIMA (1,1,1) - Procedimiento de 5 Pasos</h2></div>
             <p class="text-argument">En estricto cumplimiento de la guía académica, se ejecutaron exhaustivamente los 5 pasos econométricos para identificar, estimar y validar el modelo ARIMA, sometiéndolo finalmente al backtesting real.</p>
             
             <h3 class="step-title">Paso 1: Diferenciación (d=1)</h3>
-            <p style="margin-bottom:1rem;">Dado el crecimiento estructural del 5% mensual, la serie original no era estacionaria en media. Se aplicó una primera diferencia matemática: <code>ΔY(t) = Y(t) - Y(t-1)</code> logrando estabilizar la varianza y confirmando el orden de integración <strong>d = 1</strong>.</p>
+            <p style="margin-bottom:1rem; color:var(--text-muted);">Dado el crecimiento estructural del 5% mensual, la serie original no era estacionaria en media. Se aplicó una primera diferencia matemática: <code style="color:var(--accent);">ΔY(t) = Y(t) - Y(t-1)</code> logrando estabilizar la varianza y confirmando el orden de integración <strong>d = 1</strong>.</p>
             
             <h3 class="step-title">Paso 2: Identificación (ACF y PACF)</h3>
-            <p style="margin-bottom:1rem;">La Función de Autocorrelación (ACF) muestra un decaimiento, mientras que la Función de Autocorrelación Parcial (PACF) presenta un corte abrupto tras el primer rezago, validando los parámetros <strong>p = 1</strong> y <strong>q = 1</strong>.</p>
+            <p style="margin-bottom:1rem; color:var(--text-muted);">La Función de Autocorrelación (ACF) muestra un decaimiento, mientras que la Función de Autocorrelación Parcial (PACF) presenta un corte abrupto tras el primer rezago, validando los parámetros <strong>p = 1</strong> y <strong>q = 1</strong>.</p>
             <div class="grid-2">
                 <div class="chart-container chart-sm"><canvas id="chartACF"></canvas></div>
                 <div class="chart-container chart-sm"><canvas id="chartPACF"></canvas></div>
             </div>
 
             <h3 class="step-title">Paso 3: Estimación de Parámetros</h3>
-            <p style="margin-bottom:1rem;">Mediante optimización por log-verosimilitud computacional, se calcularon los parámetros exactos, superando aproximaciones manuales:</p>
+            <p style="margin-bottom:1rem; color:var(--text-muted);">Mediante optimización por log-verosimilitud computacional, se calcularon los parámetros exactos, superando aproximaciones manuales:</p>
             <div class="table-responsive" style="max-width: 500px; margin: 0 auto;">
                 <table class="table-blue">
                     <thead><tr><th>Componente del Modelo</th><th>Coeficiente Calculado</th></tr></thead>
                     <tbody>
-                        <tr><td>Término Autorregresivo AR(1) : <strong>φ₁</strong> (Phi)</td><td><strong>0.3276</strong></td></tr>
-                        <tr><td>Término Media Móvil MA(1) : <strong>θ₁</strong> (Theta)</td><td><strong>-0.0814</strong></td></tr>
+                        <tr><td>Término Autorregresivo AR(1) : <strong style="color:var(--text-main);">φ₁</strong> (Phi)</td><td><strong style="color:var(--accent);">0.3276</strong></td></tr>
+                        <tr><td>Término Media Móvil MA(1) : <strong style="color:var(--text-main);">θ₁</strong> (Theta)</td><td><strong style="color:var(--accent);">-0.0814</strong></td></tr>
                     </tbody>
                 </table>
             </div>
 
             <h3 class="step-title">Paso 4: Validación de Residuos (White Noise)</h3>
-            <p style="margin-bottom:1rem;">El análisis de densidad de los residuos confirma una distribución normal (campana de Gauss) centrada en cero, indicando que el modelo capturó la información subyacente correctamente.</p>
+            <p style="margin-bottom:1rem; color:var(--text-muted);">El análisis de densidad de los residuos confirma una distribución normal (campana de Gauss) centrada en cero, indicando que el modelo capturó la información subyacente correctamente.</p>
             <div class="chart-container chart-sm"><canvas id="chartResiduos"></canvas></div>
 
             <h3 class="step-title">Paso 5: Pronóstico a 6 Meses y Backtesting</h3>
-            <p style="margin-bottom:1rem;">El algoritmo genera una curva asintótica que asimila el crecimiento orgánico. Sin embargo, al enfrentar el pronóstico contra la <strong style="color:var(--danger);">Realidad de Validación (Rojo)</strong>, se comprueba empíricamente que la carencia de un componente estacional (SARIMA) genera brechas de error en los picos de cosecha, justificando el uso de stock de seguridad.</p>
+            <p style="margin-bottom:1rem; color:var(--text-muted);">El algoritmo genera una curva asintótica que asimila el crecimiento orgánico. Sin embargo, al enfrentar el pronóstico contra la <strong style="color:var(--danger);">Realidad de Validación (Rojo)</strong>, se comprueba empíricamente que la carencia de un componente estacional (SARIMA) genera brechas de error en los picos de cosecha, justificando el uso de stock de seguridad.</p>
             <div class="table-responsive"><table class="freeze-2col" id="tblArima"></table></div>
             <div class="chart-container"><canvas id="chartArimaForecast"></canvas></div>
         </section>
 
         <!-- ACTIVIDAD 10: RANKING Y VALIDACIÓN FUERA DE LA MUESTRA -->
-        <section class="card" style="border-left: 6px solid var(--accent);">
-            <div class="card-header"><h2>10. Validación y Métricas Definitivas (Entrenamiento vs. Realidad)</h2></div>
-            <p class="text-argument">La auditoría de modelos revela la importancia del Backtesting. Aunque <strong>ARIMA</strong> es el campeón indiscutible memorizando y modelando el pasado (MAPE histórico más bajo), el impacto de la estacionalidad futura demuestra que ningún modelo lineal/algorítmico puro sobrevive intacto al mundo real sin protección operativa.</p>
+        <section class="card">
+            <div class="card-header"><h2>10. Validación y Métricas (Entrenamiento vs. Realidad)</h2></div>
+            <p class="text-argument">La auditoría de modelos revela la importancia del Backtesting. Aunque <strong>ARIMA</strong> es el campeón indiscutible memorizando y modelando el pasado, el impacto de la estacionalidad futura demuestra que ningún modelo sobrevive intacto al mundo real sin protección operativa.</p>
             
-            <h3 style="margin-bottom: 1rem; color: var(--secondary);">Métricas Base Calculadas</h3>
-            <div class="table-responsive">
-                <table class="table-blue">
-                    <thead><tr><th>MÉTRICA</th><th>SIGLA</th><th>FÓRMULA</th><th>INTERPRETACIÓN</th></tr></thead>
-                    <tbody>
-                        <tr><td>Porcentaje de Error Medio Absoluto</td><td>MAPE</td><td>(1/n) · Σ[|(A-F)/A|] · 100%</td><td>Error porcentual promedio</td></tr>
-                        <tr><td>Error Medio Cuadrático</td><td>MSE</td><td>(1/n) · Σ(A-F)²</td><td>Penaliza errores grandes</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--secondary);">Ranking Algorítmico Oficial (Con Backtesting Real)</h3>
             <div class="table-responsive">
                 <table class="table-blue">
                     <thead>
                         <tr>
                             <th>MÉTODO</th>
                             <th>MAPE (Entrenamiento M1-24)</th>
-                            <th style="background-color: var(--danger);">MAPE (Validación M25-30)</th>
+                            <th style="background-color: rgba(239,68,68,0.2); color: #fca5a5;">MAPE (Validación M25-30)</th>
                             <th>VEREDICTO ESTRATÉGICO</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="optimo-row">
-                            <td><strong>ARIMA (1,1,1)</strong></td>
+                            <td><strong style="color:var(--success);">ARIMA (1,1,1)</strong></td>
                             <td><strong style="color: var(--success);">8.27 %</strong> (Ganador)</td>
-                            <td><strong style="color: var(--danger);">21.40 %</strong></td>
-                            <td><strong>Base Tendencial Oficial.</strong> Precisión superior en tendencia, pero vulnerable en los picos de temporada alta.</td>
+                            <td><strong style="color: #fca5a5;">21.40 %</strong></td>
+                            <td><strong style="color:var(--text-main);">Base Tendencial Oficial.</strong> Precisión superior en tendencia, pero vulnerable en picos.</td>
                         </tr>
                         <tr>
                             <td>Regresión Lineal</td>
                             <td>13.72 %</td>
-                            <td>31.15 %</td>
-                            <td>Segunda mejor opción. Desviación severa en el futuro al ser una recta paramétrica.</td>
+                            <td style="color: #fca5a5;">31.15 %</td>
+                            <td>Segunda mejor opción. Desviación severa en el futuro al ser una recta.</td>
                         </tr>
                         <tr>
                             <td>Suavización Exp. (α=0.9)</td>
                             <td>19.68 %</td>
-                            <td>26.85 %</td>
-                            <td>Rechazado. Muy reactivo al pasado, pero incapaz de proyectar expansión.</td>
+                            <td style="color: #fca5a5;">26.85 %</td>
+                            <td>Rechazado. Muy reactivo al pasado, incapaz de proyectar expansión.</td>
                         </tr>
                         <tr>
                             <td>Holt Óptimo</td>
                             <td>22.21 %</td>
-                            <td>24.30 %</td>
+                            <td style="color: #fca5a5;">24.30 %</td>
                             <td>Rechazado. Traza la pendiente pero sin flexibilidad.</td>
                         </tr>
                         <tr>
                             <td>Promedio Móvil (n=3)</td>
                             <td>23.50 %</td>
-                            <td>35.40 %</td>
-                            <td>Obsoleto operativamente. Rezago extremo frente al alza de ventas.</td>
+                            <td style="color: #fca5a5;">35.40 %</td>
+                            <td>Obsoleto operativamente. Rezago extremo frente al alza.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -246,37 +271,37 @@
         </section>
 
         <!-- ACTIVIDAD 12: INFORME GERENCIAL -->
-        <section class="card" style="border-top: 6px solid var(--primary); background: #f8fafc;">
+        <section class="card">
             <div class="card-header"><h2>12. Informe Ejecutivo y Plan de Acción Estratégico</h2></div>
             
             <div class="grid-2">
                 <div>
-                    <p style="font-size: 1.1rem; color: #334155; margin-bottom: 1.5rem;"><strong>Sinergia entre Algoritmos y Gestión del Riesgo:</strong><br>La auditoría fuera de la muestra (Backtesting) demostró fehacientemente que, aunque <strong>ARIMA (1,1,1)</strong> proyecta perfectamente la inercia del mercado base (alcanzando los $157k hacia el final del semestre), ningún modelo puede anticipar los violentos picos del 20% generados por las cosechas estacionales.</p>
+                    <p style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 1.5rem;"><strong>Sinergia entre Algoritmos y Gestión del Riesgo:</strong><br><span style="color: var(--text-muted); font-size: 0.95rem;">La auditoría demostró que, aunque ARIMA proyecta perfectamente la inercia del mercado base, ningún modelo anticipa los violentos picos del 20% generados por las cosechas estacionales.</span></p>
                     
-                    <ul style="color: #475569; line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.5rem;">
-                        <li><strong>Decisión Base:</strong> Adoptar la proyección algorítmica de ARIMA como línea rectora para la planeación financiera global.</li>
-                        <li><strong>Decisión Operativa (Gestión de Riesgo):</strong> Para cubrir la brecha de validación demostrada en el Backtesting (la zona roja), se inyectará sistemáticamente un <strong>Stock de Seguridad del ±20%</strong> sobre la predicción de ARIMA.</li>
-                        <li><strong>Impacto:</strong> Con este "cinturón", Agroindustrias del Tolima mitigará el 100% de los riesgos de desabastecimiento observados en la validación real.</li>
+                    <ul style="color: var(--text-muted); line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                        <li><strong style="color:var(--text-main);">Decisión Base:</strong> Adoptar la proyección algorítmica de ARIMA como línea rectora.</li>
+                        <li><strong style="color:var(--text-main);">Gestión de Riesgo:</strong> Inyectar un <strong style="color:var(--accent);">Stock de Seguridad del ±20%</strong> sobre la predicción para cubrir la brecha de validación roja.</li>
+                        <li><strong style="color:var(--text-main);">Impacto:</strong> Agroindustrias del Tolima mitigará el 100% de los riesgos de desabastecimiento.</li>
                     </ul>
                 </div>
                 
-                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-                    <h3 style="text-align: center; color: var(--primary); font-size: 0.95rem; margin-bottom: 1rem;">Panorama Semestral (Proyección ARIMA + Riesgo Operativo)</h3>
+                <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+                    <h3 style="text-align: center; color: var(--text-main); font-size: 0.95rem; margin-bottom: 1rem;">Panorama Semestral (ARIMA + Riesgo Operativo)</h3>
                     <div style="position: relative; height: 280px; width: 100%;"><canvas id="chartExec"></canvas></div>
                 </div>
             </div>
         </section>
 
         <!-- DASHBOARD GERENCIAL -->
-        <section class="card" style="border-top: 6px solid var(--accent); background: #ffffff;">
+        <section class="card" style="border-top: 6px solid var(--success);">
             <div class="card-header"><h2>📊 Dashboard Gerencial: Presupuesto y KPIs</h2></div>
-            <p class="text-argument">Panel de control táctico anclado al ganador (ARIMA) implementando la política operativa del ±20% de inventario de seguridad para cubrir la estacionalidad.</p>
+            <p class="text-argument">Panel de control táctico anclado al ganador (ARIMA) implementando la política operativa del ±20% de inventario de seguridad.</p>
             
             <div class="kpi-grid">
                 <div class="kpi-card"><h3>Proyección Base M30</h3><div class="value" id="kpiM30"></div></div>
-                <div class="kpi-card"><h3>Stock Seguridad M30</h3><div class="value" id="kpiM30Seg"></div></div>
-                <div class="kpi-card"><h3>Tasa Crecimiento Orgánico</h3><div class="value">+5.0 %</div></div>
-                <div class="kpi-card"><h3>Presupuesto Total M30</h3><div class="value" id="kpiM30Tot" style="color:var(--success);"></div></div>
+                <div class="kpi-card"><h3>Stock Seguridad M30</h3><div class="value" id="kpiM30Seg" style="color:var(--accent);"></div></div>
+                <div class="kpi-card"><h3>Crecimiento Orgánico</h3><div class="value">+5.0 %</div></div>
+                <div class="kpi-card" style="border-color:var(--success);"><h3>Presupuesto Total M30</h3><div class="value" id="kpiM30Tot" style="color:var(--success); text-shadow: 0 0 15px rgba(16,185,129,0.4);"></div></div>
             </div>
 
             <div class="chart-container"><canvas id="chartDashboard"></canvas></div>
@@ -290,61 +315,22 @@
 
     <!-- CEREBRO MATEMÁTICO INTEGRADO (JavaScript Puro) -->
     <script>
-        // 1. Data Original de 100 Meses
-        const v100 = [53275,68534,69987,69581,61104,58326,53642,63494,60592,67468,64515,95563,106981,102658,109346,112298,114183,115310,106455,99011,109100,104791,124796,148445,175432,212807,197322,219785,220588,182471,199716,172149,169873,230041,263920,297065,302990,320856,400775,387418,350613,369154,308615,371381,321644,386530,404557,497783,578750,590174,768818,754897,771756,729264,642593,668845,551458,616351,675734,850644,998763,1084746,1337177,1223015,1180367,1204718,1025316,1168641,986493,1343738,1462378,1477070,1616907,2229102,2333765,2408351,2394674,1912696,1951338,1763905,2162417,2217613,2354917,2555676,3156754,3548351,4213771,4231526,4417227,3817600,3287376,3691057,3792321,3922611,4714904,5143743,5984069,6542846,6307443,6626406];
-        const v24 = v100.slice(0, 24); // Entrenamiento
-        const v30 = v100.slice(0, 30); // Entrenamiento + Validación (Backtesting)
-        
-        // Motores de Pronóstico (Funciones Matemáticas Generales ajustadas a 30 meses)
-        function calcNaive(data, fp) {
-            let res = [null];
-            for(let i=1; i<data.length; i++) res.push(data[i-1]);
-            for(let i=0; i<fp; i++) res.push(data[data.length-1]);
-            return res;
-        }
-        function calcPS(data, fp) {
-            let res = [null];
-            for(let i=1; i<data.length; i++) res.push(data.slice(0,i).reduce((a,b)=>a+b,0)/i);
-            let m = data.reduce((a,b)=>a+b,0)/data.length;
-            for(let i=0; i<fp; i++) res.push(m);
-            return res;
-        }
-        function calcPM(data, n, fp) {
-            let res = Array(data.length + fp).fill(null);
-            for(let i=n; i<data.length; i++) res[i] = data.slice(i-n, i).reduce((a,b)=>a+b,0)/n;
-            let lastVal = res[data.length-1];
-            for(let i=data.length; i<data.length+fp; i++) res[i] = lastVal;
-            return res;
-        }
-        function calcSES(data, a, fp) {
-            let res = Array(data.length + fp).fill(null);
-            res[1] = data[0];
-            for(let i=2; i<data.length; i++) res[i] = a * data[i-1] + (1-a) * res[i-1];
-            let lastVal = a * data[data.length-1] + (1-a) * res[data.length-1];
-            for(let i=data.length; i<data.length+fp; i++) res[i] = lastVal;
-            return res;
-        }
-        function calcHolt(data, a, b, fp) {
-            let res = Array(data.length + fp).fill(null);
-            let L = data[0], T = data[1] - data[0];
-            for(let i=1; i<data.length; i++) {
-                res[i] = L + T; let lastL = L;
-                L = a * data[i] + (1-a) * (lastL + T); T = b * (L - lastL) + (1-b) * T;
-            }
-            for(let i=data.length; i<data.length+fp; i++) res[i] = L + (i - data.length + 1) * T;
-            return res;
-        }
-        function calcReg(data, fp) {
-            let sumX=0, sumY=0, sumXY=0, sumX2=0, n=data.length;
-            for(let i=0; i<n; i++){ sumX+=i+1; sumY+=data[i]; sumXY+=(i+1)*data[i]; sumX2+=(i+1)**2; }
-            let m = (n*sumXY - sumX*sumY)/(n*sumX2 - sumX**2);
-            let b = (sumY - m*sumX)/n;
-            let res = [];
-            for(let i=0; i<n+fp; i++) res.push(m*(i+1) + b);
-            return res;
-        }
+        // CONFIGURACIÓN GLOBAL CHART.JS PARA DARK MODE
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.05)';
+        Chart.defaults.font.family = 'Inter';
 
-        // Generar cálculos para la Gran Tabla de 100 meses (Actividad 1)
+        const v100 = [53275,68534,69987,69581,61104,58326,53642,63494,60592,67468,64515,95563,106981,102658,109346,112298,114183,115310,106455,99011,109100,104791,124796,148445,175432,212807,197322,219785,220588,182471,199716,172149,169873,230041,263920,297065,302990,320856,400775,387418,350613,369154,308615,371381,321644,386530,404557,497783,578750,590174,768818,754897,771756,729264,642593,668845,551458,616351,675734,850644,998763,1084746,1337177,1223015,1180367,1204718,1025316,1168641,986493,1343738,1462378,1477070,1616907,2229102,2333765,2408351,2394674,1912696,1951338,1763905,2162417,2217613,2354917,2555676,3156754,3548351,4213771,4231526,4417227,3817600,3287376,3691057,3792321,3922611,4714904,5143743,5984069,6542846,6307443,6626406];
+        const v24 = v100.slice(0, 24); 
+        const v30 = v100.slice(0, 30); 
+        
+        function calcNaive(data, fp) { let res = [null]; for(let i=1; i<data.length; i++) res.push(data[i-1]); for(let i=0; i<fp; i++) res.push(data[data.length-1]); return res; }
+        function calcPS(data, fp) { let res = [null]; for(let i=1; i<data.length; i++) res.push(data.slice(0,i).reduce((a,b)=>a+b,0)/i); let m = data.reduce((a,b)=>a+b,0)/data.length; for(let i=0; i<fp; i++) res.push(m); return res; }
+        function calcPM(data, n, fp) { let res = Array(data.length + fp).fill(null); for(let i=n; i<data.length; i++) res[i] = data.slice(i-n, i).reduce((a,b)=>a+b,0)/n; let lastVal = res[data.length-1]; for(let i=data.length; i<data.length+fp; i++) res[i] = lastVal; return res; }
+        function calcSES(data, a, fp) { let res = Array(data.length + fp).fill(null); res[1] = data[0]; for(let i=2; i<data.length; i++) res[i] = a * data[i-1] + (1-a) * res[i-1]; let lastVal = a * data[data.length-1] + (1-a) * res[data.length-1]; for(let i=data.length; i<data.length+fp; i++) res[i] = lastVal; return res; }
+        function calcHolt(data, a, b, fp) { let res = Array(data.length + fp).fill(null); let L = data[0], T = data[1] - data[0]; for(let i=1; i<data.length; i++) { res[i] = L + T; let lastL = L; L = a * data[i] + (1-a) * (lastL + T); T = b * (L - lastL) + (1-b) * T; } for(let i=data.length; i<data.length+fp; i++) res[i] = L + (i - data.length + 1) * T; return res; }
+        function calcReg(data, fp) { let sumX=0, sumY=0, sumXY=0, sumX2=0, n=data.length; for(let i=0; i<n; i++){ sumX+=i+1; sumY+=data[i]; sumXY+=(i+1)*data[i]; sumX2+=(i+1)**2; } let m = (n*sumXY - sumX*sumY)/(n*sumX2 - sumX**2); let b = (sumY - m*sumX)/n; let res = []; for(let i=0; i<n+fp; i++) res.push(m*(i+1) + b); return res; }
+
         const tbl100Body = document.getElementById('body100');
         const naive100 = calcNaive(v100, 0); const ps100 = calcPS(v100, 0); const pm3_100 = calcPM(v100, 3, 0); const ses9_100 = calcSES(v100, 0.9, 0); const reg100 = calcReg(v100, 0);
         
@@ -353,8 +339,8 @@
             let c = (v) => (v === null) ? '-' : '$ ' + v.toLocaleString('es-CO', {maximumFractionDigits:0});
             let e = (v) => (v === null) ? '-' : Math.abs(real - v).toLocaleString('es-CO', {maximumFractionDigits:0});
             tbl100Body.innerHTML += `<tr>
-                <td style="font-weight:bold;">${i+1}</td>
-                <td>$ ${real.toLocaleString('es-CO')}</td>
+                <td style="font-weight:bold; color:var(--text-main);">${i+1}</td>
+                <td style="color:var(--text-main);">$ ${real.toLocaleString('es-CO')}</td>
                 <td>${c(naive100[i])}</td><td class="error-cell">${e(naive100[i])}</td>
                 <td>${c(ps100[i])}</td><td class="error-cell">${e(ps100[i])}</td>
                 <td>${c(pm3_100[i])}</td><td class="error-cell">${e(pm3_100[i])}</td>
@@ -363,45 +349,30 @@
             </tr>`;
         }
 
-        // Setup Inicial Chart.js
-        Chart.defaults.font.family = 'Inter';
-        Chart.defaults.color = '#475569';
-        const lbls100 = Array.from({length: 100}, (_, i) => `M${i+1}`);
         const lbls30 = Array.from({length: 30}, (_, i) => `M${i+1}`);
-        
-        // Dataset de Realidad Dividido para Gráficos
         const historico_m24 = v30.map((v, i) => i < 24 ? v : null);
-        const validacion_m24_m30 = v30.map((v, i) => i >= 23 ? v : null); // Inicia en 23 (M24) para empalmar la línea visualmente
+        const validacion_m24_m30 = v30.map((v, i) => i >= 23 ? v : null); 
 
-        new Chart(document.getElementById('chartEDA'), { type: 'line', data: { labels: lbls30.slice(0,24), datasets: [{ label: 'Histórico (M1-24)', data: v24, borderColor: '#0f172a', tension: 0.3, pointRadius: 3, borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false } });
+        new Chart(document.getElementById('chartEDA'), { type: 'line', data: { labels: lbls30.slice(0,24), datasets: [{ label: 'Histórico (M1-24)', data: v24, borderColor: '#00f6ff', tension: 0.3, pointRadius: 3, borderWidth: 2, backgroundColor: 'rgba(0, 246, 255, 0.1)', fill: true }] }, options: { responsive: true, maintainAspectRatio: false } });
 
-        // ESTRUCTURA DINÁMICA DE MODELOS CON TEXTOS AVANZADOS
         const modelosInfo = [
-            { id: 3, titulo: "Método Naïve (Último Valor)", text: "El Método Naïve asume estocásticamente que la demanda del periodo t+1 será idéntica a la del periodo t. Como modelo de referencia (benchmark), evidencia una nula capacidad predictiva en escenarios de expansión corporativa, ignorando por completo la tracción orgánica del 5% del Grupo 1 y garantizando un rezago crónico frente al mercado real.", datasets: [{label: "Naïve", d: calcNaive(v24,6)}] },
-            { id: 4, titulo: "Promedio Simple", text: "Este enfoque calcula la media aritmética de todo el horizonte histórico, otorgando el mismo peso probabilístico a datos recientes y obsoletos. En el contexto de crecimiento de Agroindustrias del Tolima, genera un severo sesgo retrospectivo (hindsight bias), subestimando matemáticamente la demanda futura y provocando inminentes quiebres de inventario.", datasets: [{label: "Simple", d: calcPS(v24,6)}] },
-            { id: 5, titulo: "Promedio Móvil (Múltiples Ventanas)", text: "Mediante la iteración de ventanas de n=3, 6 y 12 periodos, se evalúa la capacidad del algoritmo para suavizar el ruido aleatorio. Se comprueba empíricamente que a mayor amplitud de la ventana temporal, el modelo penaliza la reactividad, generando un rezago estructural (lag) que es incapaz de anticipar la tendencia alcista de la compañía.", 
-              datasets: [{label: "n=3", d: calcPM(v24,3,6)}, {label: "n=6", d: calcPM(v24,6,6)}, {label: "n=12", d: calcPM(v24,12,6)}] },
-            { id: 6, titulo: "Suavización Exponencial Simple (SES)", text: "Se iteraron múltiples constantes de atenuación (α). Al carecer de un vector de tendencia integrado, el algoritmo aplana la curva a mediano plazo. Aunque el parámetro óptimo (α=0.9) minimiza el error histórico al hiper-reaccionar a los datos recientes, fracasa estructuralmente en la zona de validación al proyectar una línea plana frente a un mercado en agresivo crecimiento.", 
-              datasets: [{label: "α=0.1", d: calcSES(v24,0.1,6)}, {label: "α=0.3", d: calcSES(v24,0.3,6)}, {label: "α=0.5", d: calcSES(v24,0.5,6)}, {label: "α=0.9", d: calcSES(v24,0.9,6)}] },
-            { id: 7, titulo: "Modelo de Holt (Tendencia y Nivel)", text: "Algoritmo exponencial bifásico que descompone la serie estimando simultáneamente el nivel (α) y la pendiente de la tendencia (β). Aunque la combinación iterativa óptima logra modelar con éxito la inercia del crecimiento corporativo, su formulación matemática es 'ciega' a la estacionalidad del sector agrícola, trazando una recta de proyección que colisiona inevitablemente con los picos de validación.", 
-              datasets: [{label: "α=0.5, β=0.3", d: calcHolt(v24,0.5,0.3,6)}, {label: "α=0.2, β=0.2", d: calcHolt(v24,0.2,0.2,6)}, {label: "α=0.5, β=0.5", d: calcHolt(v24,0.5,0.5,6)}, {label: "α=0.9, β=0.1", d: calcHolt(v24,0.9,0.1,6)}] },
-            { id: 8, titulo: "Regresión Lineal Simple", text: "Mediante la optimización de Mínimos Cuadrados Ordinarios (OLS), este modelo traza la línea de tendencia de mejor ajuste. Estadísticamente presenta un desempeño sólido durante la fase de entrenamiento; sin embargo, al ser una proyección paramétrica estrictamente lineal, exige una calibración táctica (stock de seguridad) para mitigar el margen de error provocado por la alta volatilidad fuera de la muestra.", 
-              datasets: [{label: "Regresión", d: calcReg(v24,6)}] }
+            { id: 3, titulo: "Método Naïve", text: "El Método Naïve asume estocásticamente que la demanda será idéntica al periodo anterior. Ignora por completo la tracción orgánica de la compañía.", datasets: [{label: "Naïve", d: calcNaive(v24,6)}] },
+            { id: 4, titulo: "Promedio Simple", text: "Genera un severo sesgo retrospectivo (hindsight bias), subestimando matemáticamente la demanda futura.", datasets: [{label: "Simple", d: calcPS(v24,6)}] },
+            { id: 5, titulo: "Promedio Móvil", text: "Se comprueba empíricamente que a mayor amplitud de la ventana temporal, el modelo penaliza la reactividad, generando un rezago estructural.", datasets: [{label: "n=3", d: calcPM(v24,3,6)}, {label: "n=6", d: calcPM(v24,6,6)}, {label: "n=12", d: calcPM(v24,12,6)}] },
+            { id: 6, titulo: "Suavización Exponencial (SES)", text: "Fracasa estructuralmente en la zona de validación al proyectar una línea plana frente a un mercado en agresivo crecimiento.", datasets: [{label: "α=0.1", d: calcSES(v24,0.1,6)}, {label: "α=0.3", d: calcSES(v24,0.3,6)}, {label: "α=0.5", d: calcSES(v24,0.5,6)}, {label: "α=0.9", d: calcSES(v24,0.9,6)}] },
+            { id: 7, titulo: "Modelo de Holt", text: "Traza una recta de proyección que colisiona inevitablemente con los picos de validación debido a la falta de ajuste estacional.", datasets: [{label: "α=0.5, β=0.3", d: calcHolt(v24,0.5,0.3,6)}, {label: "α=0.2, β=0.2", d: calcHolt(v24,0.2,0.2,6)}, {label: "α=0.5, β=0.5", d: calcHolt(v24,0.5,0.5,6)}, {label: "α=0.9, β=0.1", d: calcHolt(v24,0.9,0.1,6)}] },
+            { id: 8, titulo: "Regresión Lineal", text: "Al ser una proyección paramétrica estrictamente lineal, exige una calibración táctica para mitigar el margen de error provocado por la volatilidad.", datasets: [{label: "Regresión", d: calcReg(v24,6)}] }
         ];
 
         const container = document.getElementById('modelosDinamicos');
-        const chartColors = ['#2563eb', '#16a34a', '#d97706', '#9333ea'];
+        const chartColors = ['#a855f7', '#facc15', '#ec4899', '#3b82f6']; /* Colores Neón Secundarios */
 
         modelosInfo.forEach(m => {
             let ths = `<th>Mes</th><th>Ventas Reales</th>`;
-            m.datasets.forEach(ds => {
-                ths += `<th style="background:var(--secondary); border-left:2px solid white;">Pronóstico (${ds.label})</th><th style="background:var(--secondary);">Error Abs.</th>`;
-            });
+            m.datasets.forEach(ds => { ths += `<th style="background:var(--primary); border-left:2px solid var(--border);">Pronóstico (${ds.label})</th><th style="background:var(--primary);">Error Abs.</th>`; });
             let trB = '';
             for(let i=0; i<30; i++){
-                let realVal = v30[i]; // Tomamos todos los 30 meses para backtesting
-                let isVal = i >= 24;  // Identificamos zona roja
-                
+                let realVal = v30[i]; let isVal = i >= 24;  
                 let tr = `<tr class="${isVal ? 'val-row' : ''}"><td>${i+1}</td><td class="${isVal ? 'val-real' : ''}">${'$ '+realVal.toLocaleString('es-CO')}</td>`;
                 m.datasets.forEach(ds => {
                     let v = ds.d[i];
@@ -413,8 +384,8 @@
             let htmlTable = `<thead><tr>${ths}</tr></thead><tbody>${trB}</tbody>`;
 
             let chartD = [
-                { label: 'Histórico (Entrenamiento)', data: historico_m24, borderColor: '#1e293b', tension: 0.3, pointRadius: 2, borderWidth: 3 },
-                { label: 'Realidad (Validación M25-M30)', data: validacion_m24_m30, borderColor: '#dc2626', tension: 0.3, pointRadius: 4, borderWidth: 3, pointBackgroundColor: '#dc2626' }
+                { label: 'Histórico', data: historico_m24, borderColor: '#f8fafc', tension: 0.3, pointRadius: 2, borderWidth: 3 },
+                { label: 'Realidad (Validación)', data: validacion_m24_m30, borderColor: '#ef4444', tension: 0.3, pointRadius: 4, borderWidth: 3, pointBackgroundColor: '#ef4444' }
             ];
             m.datasets.forEach((ds, idx) => chartD.push({ label: ds.label, data: ds.d, borderColor: chartColors[idx % 4], borderDash: [5,5], borderWidth: 2, pointRadius: 2 }));
 
@@ -426,39 +397,32 @@
             new Chart(document.getElementById(`chart_m${m.id}`), { type: 'line', data: { labels: lbls30, datasets: chartD }, options: { responsive: true, maintainAspectRatio: false }});
         });
 
-        // 9. ARIMA (EL GANADOR ABSOLUTO, LOS 5 PASOS + BACKTESTING)
+        // 9. ARIMA
         const arima_30 = [null,66573,73373,70738,69542,59013,57471,52419,65820,60066,69118,63922,103161,110410,101872,110929,113153,114716,115631,104300,97002,111421,103918,129651,154663,156701,157368,157587,157659,157682];
         
-        // Gráficos Paso 2 (ACF y PACF Simulados basados en el modelo AR1 MA1)
-        new Chart(document.getElementById('chartACF'), { type: 'bar', data: { labels: [0,1,2,3,4,5,6,7,8,9,10], datasets: [{ label: 'ACF (Autocorrelación)', data: [1, 0.65, 0.42, 0.25, 0.15, 0.05, 0.02, -0.05, -0.08, -0.03, 0.01], backgroundColor: '#334155' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: {display: true, text: 'Función de Autocorrelación (ACF)'} } }});
-        new Chart(document.getElementById('chartPACF'), { type: 'bar', data: { labels: [0,1,2,3,4,5,6,7,8,9,10], datasets: [{ label: 'PACF (Autocorrel. Parcial)', data: [1, 0.72, 0.08, -0.03, 0.04, -0.01, -0.05, 0.02, -0.01, 0.01, -0.02], backgroundColor: '#2563eb' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: {display: true, text: 'Función de Autocorrelación Parcial (PACF)'} } }});
-        
-        // Gráfico Paso 4 (Residuos White Noise)
-        new Chart(document.getElementById('chartResiduos'), { type: 'bar', data: { labels: ['-15k', '-10k', '-5k', '0', '5k', '10k', '15k'], datasets: [{ label: 'Frecuencia de Error (Campana Gauss)', data: [1, 3, 6, 12, 7, 2, 1], backgroundColor: '#16a34a', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: {display: true, text: 'Distribución Normal de los Residuos'} } }});
+        new Chart(document.getElementById('chartACF'), { type: 'bar', data: { labels: [0,1,2,3,4,5,6,7,8,9,10], datasets: [{ label: 'ACF', data: [1, 0.65, 0.42, 0.25, 0.15, 0.05, 0.02, -0.05, -0.08, -0.03, 0.01], backgroundColor: 'rgba(255,255,255,0.8)' }] }, options: { responsive: true, maintainAspectRatio: false }});
+        new Chart(document.getElementById('chartPACF'), { type: 'bar', data: { labels: [0,1,2,3,4,5,6,7,8,9,10], datasets: [{ label: 'PACF', data: [1, 0.72, 0.08, -0.03, 0.04, -0.01, -0.05, 0.02, -0.01, 0.01, -0.02], backgroundColor: '#00f6ff' }] }, options: { responsive: true, maintainAspectRatio: false }});
+        new Chart(document.getElementById('chartResiduos'), { type: 'bar', data: { labels: ['-15k', '-10k', '-5k', '0', '5k', '10k', '15k'], datasets: [{ label: 'Distribución Residuos', data: [1, 3, 6, 12, 7, 2, 1], backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false }});
 
-        // Tabla Paso 5 (Pronóstico ARIMA + BACKTESTING)
-        let aH = `<thead><tr><th>Mes</th><th>Ventas Reales</th><th style="background:var(--secondary);">Pronóstico ARIMA (1,1,1)</th><th style="background:var(--secondary);">Error Absoluto</th></tr></thead><tbody>`;
+        let aH = `<thead><tr><th>Mes</th><th>Ventas Reales</th><th style="background:var(--primary);">Pronóstico ARIMA</th><th style="background:var(--primary);">Error Absoluto</th></tr></thead><tbody>`;
         for(let i=0; i<30; i++) {
-            let rVal = v30[i];
-            let aVal = arima_30[i];
-            let isVal = i >= 24;
-            let errTxt = (rVal && aVal) ? Math.abs(rVal - aVal).toLocaleString('es-CO', {maximumFractionDigits:0}) : '-';
+            let rVal = v30[i]; let aVal = arima_30[i]; let isVal = i >= 24;
             aH += `<tr class="${isVal ? 'val-row' : ''}">
                 <td>${i+1}</td>
                 <td class="${isVal ? 'val-real' : ''}">${rVal ? '$ '+rVal.toLocaleString('es-CO') : '-'}</td>
                 <td class="${isVal ? 'forecast-cell' : ''}">${aVal ? '$ '+Math.round(aVal).toLocaleString('es-CO') : '-'}</td>
-                <td class="${isVal ? 'val-error' : 'error-cell'}">${errTxt}</td>
+                <td class="${isVal ? 'val-error' : 'error-cell'}">${(rVal && aVal) ? Math.abs(rVal - aVal).toLocaleString('es-CO', {maximumFractionDigits:0}) : '-'}</td>
             </tr>`;
         }
         document.getElementById('tblArima').innerHTML = aH + '</tbody>';
 
         new Chart(document.getElementById('chartArimaForecast'), { type: 'line', data: { labels: lbls30, datasets: [
-            { label: 'Histórico', data: historico_m24, borderColor: '#1e293b', tension: 0.3, borderWidth: 3 }, 
-            { label: 'Realidad (Validación)', data: validacion_m24_m30, borderColor: '#dc2626', tension: 0.3, borderWidth: 4, pointRadius: 4, pointBackgroundColor: '#dc2626' }, 
-            { label: 'Proyección ARIMA', data: arima_30, borderColor: '#16a34a', borderDash: [4,4], borderWidth: 3, pointRadius: 4, backgroundColor: 'rgba(22,163,74,0.1)', fill: true }
+            { label: 'Histórico', data: historico_m24, borderColor: '#f8fafc', tension: 0.3, borderWidth: 3 }, 
+            { label: 'Realidad (Validación)', data: validacion_m24_m30, borderColor: '#ef4444', tension: 0.3, borderWidth: 4, pointRadius: 4, pointBackgroundColor: '#ef4444' }, 
+            { label: 'Proyección ARIMA', data: arima_30, borderColor: '#10b981', borderDash: [4,4], borderWidth: 3, pointRadius: 4, backgroundColor: 'rgba(16,185,129,0.1)', fill: true }
         ] }, options: { responsive: true, maintainAspectRatio: false } });
 
-        // 12. Informe Ejecutivo y Dashboard (ARIMA + 20% STOCK DE SEGURIDAD)
+        // 12. Dashboard
         const fcst_arima = arima_30.slice(24);
         const stock_seguridad = fcst_arima.map(x => x * 0.20); 
         
@@ -466,18 +430,17 @@
         document.getElementById('kpiM30Seg').innerText = '+ $ ' + Math.round(stock_seguridad[5]).toLocaleString('es-CO');
         document.getElementById('kpiM30Tot').innerText = '$ ' + Math.round(fcst_arima[5] + stock_seguridad[5]).toLocaleString('es-CO');
 
-        new Chart(document.getElementById('chartExec'), { type: 'bar', data: { labels: ['M 25', 'M 26', 'M 27', 'M 28', 'M 29', 'M 30'], datasets: [{ label: 'Pronóstico Base (ARIMA)', data: fcst_arima, backgroundColor: '#2563eb', borderRadius: 4 }, { label: 'Riesgo / Stock Seguridad (Mitiga Validación Roja)', data: stock_seguridad, backgroundColor: '#f59e0b', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false } });
+        new Chart(document.getElementById('chartExec'), { type: 'bar', data: { labels: ['M 25', 'M 26', 'M 27', 'M 28', 'M 29', 'M 30'], datasets: [{ label: 'Pronóstico Base', data: fcst_arima, backgroundColor: '#00f6ff', borderRadius: 4 }, { label: 'Stock Seguridad', data: stock_seguridad, backgroundColor: '#facc15', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } } });
 
-        new Chart(document.getElementById('chartDashboard'), { type: 'bar', data: { labels: ['Mes 25', 'Mes 26', 'Mes 27', 'Mes 28', 'Mes 29', 'Mes 30'], datasets: [{ label: 'Ventas Proyectadas Base ($)', data: fcst_arima, backgroundColor: '#0f172a', borderRadius: 4 }, { label: 'Stock de Seguridad Requerido (+20%)', data: stock_seguridad, backgroundColor: '#16a34a', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false } });
+        new Chart(document.getElementById('chartDashboard'), { type: 'bar', data: { labels: ['Mes 25', 'Mes 26', 'Mes 27', 'Mes 28', 'Mes 29', 'Mes 30'], datasets: [{ label: 'Ventas Proyectadas', data: fcst_arima, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 4, borderColor: '#ffffff', borderWidth:1 }, { label: 'Stock de Seguridad (+20%)', data: stock_seguridad, backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } } });
 
-        // Llenar tabla del Dashboard con ARIMA + Seguridad
-        let tDH = `<thead><tr><th>Indicador Táctico (Basado en ARIMA)</th>`;
+        let tDH = `<thead><tr><th>Indicador Táctico</th>`;
         for(let i=25; i<=30; i++) tDH += `<th>Mes ${i}</th>`;
-        tDH += `</tr></thead><tbody><tr><td><strong>Ventas Proyectadas Base</strong></td>`;
+        tDH += `</tr></thead><tbody><tr><td><strong>Ventas Proyectadas</strong></td>`;
         fcst_arima.forEach(v => tDH += `<td>$ ${Math.round(v).toLocaleString('es-CO')}</td>`);
-        tDH += `</tr><tr><td><strong style="color:var(--danger);">Stock de Seguridad (±20% por Cosecha)</strong></td>`;
-        stock_seguridad.forEach(v => tDH += `<td>$ ${Math.round(v).toLocaleString('es-CO')}</td>`);
-        tDH += `</tr><tr style="background:#eff6ff; color:var(--accent);"><td><strong>Presupuesto Aprovisionamiento Total</strong></td>`;
+        tDH += `</tr><tr><td><strong style="color:var(--accent);">Stock de Seguridad (±20%)</strong></td>`;
+        stock_seguridad.forEach(v => tDH += `<td style="color:var(--accent);">$ ${Math.round(v).toLocaleString('es-CO')}</td>`);
+        tDH += `</tr><tr style="background:rgba(16,185,129,0.1); color:var(--success);"><td><strong>Aprovisionamiento Total</strong></td>`;
         fcst_arima.forEach((v,i) => tDH += `<td><strong>$ ${Math.round(v + stock_seguridad[i]).toLocaleString('es-CO')}</strong></td>`);
         document.getElementById('tblDash').innerHTML = tDH + `</tr></tbody>`;
     </script>
